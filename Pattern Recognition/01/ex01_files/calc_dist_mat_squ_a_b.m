@@ -14,10 +14,10 @@ d = zeros(n1, n2);
 
 %%%% your code here %%%%
 
-tic;
+
 
 d = repmat(diag(x1*x1'),1,n2) + repmat(diag(x2*x2')',n1,1) - 2*x1*x2';
 
-toc
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%

@@ -15,7 +15,7 @@ d = zeros(n1,n2);
 
 %%%% your code here %%%%
 
-tic;
+
 
 for index1 = 1:n1
     for index2 = 1:n2
@@ -25,6 +25,6 @@ for index1 = 1:n1
     end
 end
 
-toc
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%
