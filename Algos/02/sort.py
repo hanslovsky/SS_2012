@@ -72,6 +72,37 @@ def quickSort(array):
     return array
 
 
+def checkSorting(arrayBefore, arrayAfter):
+    """ Check post conditions for sorting algorithm
+
+    """
+    #check the length
+    if len(arrayBefore) != len(arrayAfter):
+        return False
+    _arrayBefore = arrayBefore[:]
+
+    #check that arrays contain same elements
+    for element in arrayAfter:
+        index = 0
+        length = len(_arrayBefore)
+        while index < len(_arrayBefore):
+            if element == _arrayBefore[index]:
+                _arrayBefore.pop(index)
+                break
+            index += 1
+        if len(_arrayBefore) == length: #element not in arrayBefore
+            return False
+        
+    #check that array is sorted
+    last = arrayAfter[0]
+    for element in arrayAfter[1:]:
+        if last > element:
+            return False
+        last = element
+
+    return True
+
+
 
 
 
@@ -111,3 +142,8 @@ if __name__ == "__main__":
              mSortCount, 'g^', xRange, mSortFit, 'k')
     plt.axis([0, 55, 0, 1300])
     plt.show()
+
+
+
+    correct = checkSorting(a, dummy)
+    print 'Did the sorting work? ---> {0}'.format(correct)
