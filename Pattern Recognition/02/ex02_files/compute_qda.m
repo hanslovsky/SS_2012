@@ -7,11 +7,14 @@ function [mu0, mu1, covmat0, covmat1, p0, p1] = compute_qda(trainingy,trainingx)
 indices0 = trainingy == 0;
 indices1 = ~indices0;
 
+
 mu0 = mean(trainingx(:, indices0), 2);
-mu1 = mean(trainingy(:, indices1), 2);
+mu1 = mean(trainingx(:, indices1), 2);
 
-covmat0 = cov((trainingx(:, indices0)'))
-covmat1 = cov((trainingx(:, indices1)'))
 
-p0 = 1;
-p1 = 1;
+covmat0 = cov((trainingx(:, indices0)'));
+covmat1 = cov((trainingx(:, indices1)'));
+
+
+p0 = sum(indices0)/size(trainingy, 2);
+p1 = 1 - p0;
