@@ -22,27 +22,31 @@ def selectionSort(array):
 
 
 
-def mergeSort(array, l = 0, r = None):
+def mergeSort(array, comparisonCount = [0]):
 
-    if r == None:
-        r = len(array)
     
-    comparisonCount = 0
-    if l >= r:
+    
+    if len(array) <= 1:
         return array
     else:
-        leftArray  = mergeSort(array[l: (l+r)/2], l, (l+r)/2)
-        rightArray = mergeSort(array[(l+r)/2: r], (l+r)/2+1, r)
+        
+        counterRight = [0]
+        center = len(array)/2
+        leftArray  = mergeSort(array[ :center], comparisonCount)
+        rightArray = mergeSort(array[center: ], comparisonCount)
+        
+        return mergeArrays(leftArray, rightArray, comparisonCount)
+        
 
-        return mergeArrays(leftArray, rightArray)
 
 
-
-def mergeArrays(leftArray, rightArray):
+def mergeArrays(leftArray, rightArray, counter):
     l, r = 0, 0
-    comparisonCount = 0
+    
     res = []
     while l < len(leftArray) and r < len(rightArray):
+        
+        
         if leftArray[l] <= rightArray[r]:
             res.append(leftArray[l])
             l += 1
@@ -53,7 +57,11 @@ def mergeArrays(leftArray, rightArray):
         res += leftArray[l:]
     else:
         res += rightArray[r:]
-    comparisonCount = l + r
+
+
+    counter[0] += l + r
+    
+    
     return res
 
 
@@ -71,23 +79,35 @@ def quickSort(array):
 if __name__ == "__main__":
     a = [9, 2, 3, 64, 2, 6,4, 1,3 ,23, 5,4 ,4]
     print a
-    print mergeSort(a)
+    count = [0]
+    b = mergeSort(a, count)
+    print b
+    print count[0]
     
 
-    xRange = range(1, 51)
+    xRange = np.arange(1, 51)
     sSortCount = [0]*50
+    mSortCount = [0]*50
+
+
+    
     for i in xRange:
+        tmpCountMerge = [0]
+        
         randomArray = [random.randint(0,1000) for r in xrange(i)]
-        a, sSortCount[i-1] = selectionSort(randomArray)
+        aSelection, sSortCount[i-1] = selectionSort(randomArray)
+        aMerge     = mergeSort(randomArray, tmpCountMerge)
+        mSortCount[i-1] = tmpCountMerge
 
 
 
         
 
-    sSortFit = 0.5*(np.array(xRange)*np.array(xRange)-np.array(xRange))
+    sSortFit = 0.5*(xRange*xRange-xRange)
+    mSortFit = xRange*np.log(xRange)
 
 
         
-    #plt.plot(xRange, sSortCount, 'ro', xRange, sSortFit, 'k')
-    #plt.axis([0, 55, 0, 1300])
-    #plt.show()
+    plt.plot(xRange, sSortCount, 'ro', xRange, sSortFit, 'k', xRange, mSortCount, 'g^', xRange, mSortFit, 'k')
+    plt.axis([0, 55, 0, 1300])
+    plt.show()
