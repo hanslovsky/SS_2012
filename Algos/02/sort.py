@@ -68,7 +68,6 @@ def mergeArrays(leftArray, rightArray, counter):
 
 
 
-
 def quickSort(array):
     return array
 
@@ -108,6 +107,7 @@ if __name__ == "__main__":
 
 
         
-    plt.plot(xRange, sSortCount, 'ro', xRange, sSortFit, 'k', xRange, mSortCount, 'g^', xRange, mSortFit, 'k')
+    plt.plot(xRange, sSortCount, 'ro', xRange, sSortFit, 'k', xRange, 
+             mSortCount, 'g^', xRange, mSortFit, 'k')
     plt.axis([0, 55, 0, 1300])
     plt.show()
