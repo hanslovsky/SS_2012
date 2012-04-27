@@ -1,0 +1,62 @@
+\documentclass[a4paper,11pt,twoside]{report}
+\usepackage[left=2.5cm,right=2.0cm,top=2.0cm,bottom=2.8cm]{geometry}
+
+\usepackage[ngerman,american]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+%\usepackage{listings}
+%\usepackage{epstopdf}
+%\usepackage{sidecap}
+\usepackage[FIGTOPCAP]{subfigure}
+\usepackage{float}
+\usepackage{color}
+%\usepackage{empheq}
+\usepackage[footnotesize,bf]{caption}
+%\usepackage{titlesec}
+% \DeclareGraphicsRule{.eps}{pdf}{.pdf}{\epstopdfcall{`ps2pdf -dEPSCrop #1 \noexpand\OutputFile}}
+%\DeclareGraphicsRule{.bmp}{jpg}{}{bmp2png #1}
+%t->g
+%png->jpg
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}
+\theoremstyle{plain}
+\newtheorem{theo}[defi]{Theorem}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+%\renewcommand{\baselinestretch}{1.1}
+
+
+\begin{document}
+
+\section*{Aufgabe 2}
+\subsection*{(2b)}
+Sei $P,N\in \mathbb{N}$ mit $P<N$.\\
+\textbf{Fall $1$: Sei $N$ teilbar durch $p+1$.} Also,
+\begin{equation}
+\exists n\in\mathbb{N}_0 : N=(p+1)*n.\label{fall1}
+\end{equation}
+Alice fängt an und zieht $k$ Streichhölzer, mit $k\in{1,2,\dots,P}$. Bob kann dann durch ziehen von $P+1-k$ Streichhölzer das $(P+1)$-te Streichholz ziehen. (Denn $P+1-k\in{1,2,\dots,P}$.) Im weiteren Verlauf kann Bob bei seinem $i$-ten ziehen bis inklusive $(P+1)*i$-tes Streichholz ziehen. Wegen \eqref{fall1} wird er mit seinem $n$-ten Zug gewinnen. (Da die Spieler jeweils mindestens ein Streichholz ziehen müssen, ist es nicht möglich dass Alice vorher gewonnen hat.) Es folgt also dass Bob im Fall $1$ immer gewinnen wird.\\
+
+\textbf{Fall 2: Sei $N$ nicht teilbar durch $P+1$.} Also,
+\begin{equation}
+\exists n\in\mathbf{N}_0 und q\in{1,2,\dots,P}:N=(P+1)*n+q.\label{fall2}
+\end{equation}
+Alice zieht im ersten Zug q Streichhölzer, mit q aus \eqref{fall2}. Wenn Bob im $i$-ten Zug $k$ Streichhölzer zieht, dann muss Alice $(P+1-k)$ Streichhölzer ziehen. Alice zieht also im $(i+1)$-ten bis auf inklusive des $q+(P+1)*i$-ten Streichholzes und wird nach \eqref{fall2} mit ihrem $(n+1)$-ten Zug gewinnen. Es folgt also, dass Alice im Fall $2$ immer gewinnen wird.
+
+\subsection*{(2a)}
+Benutze die Ergebnisse aus b mit $N=100$, $P=10$. $100$ ist nicht durch $P+1=11$ teilbar und
+\begin{equation}
+100=11*9+1.
+\end{equation}
+Alice muss ziehen wie in b beschrieben und wird mit ihrem $10$-ten Zug gewinnen. 
+
+\subsection*{(2c)}
+Gegeben dass beide Spieler optimal ziehen, ist notwendige und hinreichende Bedingung zum Gewinnen, im letzten Zug alle bis auf das letzte Streichholz zu hiehen, also bis inklusive des $(N-1)$-ten. Gelingt einem dies, so muss der Gegener das $N$-te Streicholz ziehen und verliert. Gelingt einem dies nicht im gesamten Spiel, so wird es dem Gegner gelingen und man ist gezwungen das $N$-te Streicholz zu ziehen und verliert. Die Problemstellung ist also die gleiche wie in b mit $N\rightarrow\tilde{N}=N-1$. Bob wird also gewinnen wenn $(N-1)$ durch $P+1$ teilbar ist. Sonst gewinnt Alice.
+\end{document}
