@@ -3,7 +3,7 @@
 import matplotlib.pyplot as plt
 import random
 import numpy as np
-
+import copy
 
 def selectionSort(array):
 
@@ -16,7 +16,7 @@ def selectionSort(array):
                 minElement = j
         array[i], array[minElement] = array[minElement], array[i]
     
-    return array, comparisonCount
+    return comparisonCount
 
 
 
@@ -68,8 +68,35 @@ def mergeArrays(leftArray, rightArray, counter):
 
 
 
-def quickSort(array):
-    return array
+def quickSort(array, l, r, counter):
+    
+    if r > l:
+        i = partition(array, l, r, counter)
+        
+        left  = quickSort(array, l, i-1, counter)
+        right = quickSort(array, i+1, r, counter)
+        
+
+
+def partition(array, l, r, counter):
+    pivot = array[r]
+    i = l
+    j = r-1
+
+    while True:
+        while array[i] <= pivot and i < r:
+            i += 1
+            counter[0] += 1
+        while array[j] >= pivot and j > l:
+            j -= 1
+            counter[0] += 1
+        if i >= j:
+            break
+
+
+        array[i], array[j] = array[j], array[i]
+    return i
+
 
 
 def checkSorting(arrayBefore, arrayAfter):
@@ -108,39 +135,55 @@ def checkSorting(arrayBefore, arrayAfter):
 
 if __name__ == "__main__":
     a = [9, 2, 3, 64, 2, 6,4, 1,3 ,23, 5,4 ,4]
-    print a
-    count = [0]
-    b = mergeSort(a, count)
-    print b
-    print count[0]
-    
+    c = [0]
+    quickSort(a, 0, len(a) - 1, c)
+    print c, a
 
-    xRange = np.arange(1, 51)
-    sSortCount = [0]*50
-    mSortCount = [0]*50
+    
+    maxArrayLength = 1000
+    
+    xRange = np.arange(1, maxArrayLength + 1)
+    sSortCount = [0]*maxArrayLength
+    mSortCount = [0]*maxArrayLength
+    qSortCount = [0]*maxArrayLength
 
 
     
     for i in xRange:
         tmpCountMerge = [0]
+        tmpCountQuick = [0]
         
-        randomArray = [random.randint(0,1000) for r in xrange(i)]
-        aSelection, sSortCount[i-1] = selectionSort(randomArray)
-        aMerge     = mergeSort(randomArray, tmpCountMerge)
+        randomArray     = [random.randint(0,1000) for r in xrange(i)]
+        randomArray_m   = copy.deepcopy(randomArray)
+        randomArray_q   = copy.deepcopy(randomArray)
+        
+        sSortCount[i-1] = selectionSort(randomArray)
+
+        aMerge          = mergeSort(randomArray_m, tmpCountMerge)
         mSortCount[i-1] = tmpCountMerge
 
-
+        quickSort(randomArray_q, 0, len(randomArray_q) - 1, tmpCountQuick)
+        qSortCount[i-1] = tmpCountQuick
+        
 
         
 
     sSortFit = 0.5*(xRange*xRange-xRange)
     mSortFit = xRange*np.log(xRange)
+    qSortFit = xRange*np.log(xRange)
 
 
         
-    plt.plot(xRange, sSortCount, 'ro', xRange, sSortFit, 'k', xRange, 
-             mSortCount, 'g^', xRange, mSortFit, 'k')
-    plt.axis([0, 55, 0, 1300])
+    plt.plot(xRange, sSortCount, 'ro',
+             xRange, sSortFit, 'k',
+             xRange, mSortCount, 'g^',
+             xRange, mSortFit, 'k',
+             xRange, qSortCount, 'bs',
+             xRange, qSortFit, 'k')
+
+
+    
+    plt.axis([0, xRange[-1] + 1, 0, sSortCount[-1] + 10])
     plt.show()
 
 
