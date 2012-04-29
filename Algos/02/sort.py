@@ -72,7 +72,7 @@ def mergeArrays(leftArray, rightArray, counter):
 
 
 def quickSort(array, l, r, counter):
-    #print id(array), "qS"
+    
 
     if r > l:
         i, array = partition(array, l, r, counter)
@@ -99,13 +99,12 @@ def partition(array, l, r, counter):
         if i >= j:
             break
 
-    print  array, array[j], array[i], pivot, "if"
+    #print  array, array[j], array[i], pivot, "array array[j] array[i] pivot"
     if array[i] > pivot:
-        #print array[i], array[j], "before switch"
         array[i], array[j] = array[j], array[i]
-        #print array[i], array[j], "after switch"
+        
 
-    #print id(array), "partition"
+    
 
     return i, array
 
