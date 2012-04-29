@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import random
 import numpy as np
 import copy
+import timeit
+
+
 
 def selectionSort(array):
 
@@ -69,19 +72,22 @@ def mergeArrays(leftArray, rightArray, counter):
 
 
 def quickSort(array, l, r, counter):
-    
+    #print id(array), "qS"
+
     if r > l:
-        i = partition(array, l, r, counter)
+        i, array = partition(array, l, r, counter)
         
-        left  = quickSort(array, l, i-1, counter)
-        right = quickSort(array, i+1, r, counter)
+        quickSort(array, l, i-1, counter)
+        quickSort(array, i+1, r, counter)
+
+            
         
 
 
 def partition(array, l, r, counter):
     pivot = array[r]
     i = l
-    j = r-1
+    j = r - 1
 
     while True:
         while array[i] <= pivot and i < r:
@@ -93,9 +99,15 @@ def partition(array, l, r, counter):
         if i >= j:
             break
 
-
+    print  array, array[j], array[i], pivot, "if"
+    if array[i] > pivot:
+        #print array[i], array[j], "before switch"
         array[i], array[j] = array[j], array[i]
-    return i
+        #print array[i], array[j], "after switch"
+
+    #print id(array), "partition"
+
+    return i, array
 
 
 
@@ -134,13 +146,14 @@ def checkSorting(arrayBefore, arrayAfter):
 
 
 if __name__ == "__main__":
-    a = [9, 2, 3, 64, 2, 6,4, 1,3 ,23, 5,4 ,4]
-    c = [0]
-    quickSort(a, 0, len(a) - 1, c)
-    print c, a
+
+
+    # create arrays for number of comparisons for selection, merge and quicksort. Each array
+    # is of length maxArrayLength which equals the number of different sizes of the arrays
+    # to be sorted
 
     
-    maxArrayLength = 1000
+    maxArrayLength = 50
     
     xRange = np.arange(1, maxArrayLength + 1)
     sSortCount = [0]*maxArrayLength
@@ -150,30 +163,52 @@ if __name__ == "__main__":
 
     
     for i in xRange:
+
+        # create temporary counters for merge and quick sort
         tmpCountMerge = [0]
         tmpCountQuick = [0]
-        
+
+
+        # create random array and copies for selection, merge, quick sort
         randomArray     = [random.randint(0,1000) for r in xrange(i)]
+        randomArray_s   = copy.deepcopy(randomArray)
         randomArray_m   = copy.deepcopy(randomArray)
         randomArray_q   = copy.deepcopy(randomArray)
-        
-        sSortCount[i-1] = selectionSort(randomArray)
 
-        aMerge          = mergeSort(randomArray_m, tmpCountMerge)
+
+
+
+        # sort arrays and save number of comparisons
+        sSortCount[i-1] = selectionSort(randomArray_s)
+
+        randomArray_m   = mergeSort(randomArray_m, tmpCountMerge)
         mSortCount[i-1] = tmpCountMerge
 
-        quickSort(randomArray_q, 0, len(randomArray_q) - 1, tmpCountQuick)
+        quickSort(randomArray_q, 0, i - 1, tmpCountQuick)
         qSortCount[i-1] = tmpCountQuick
-        
+
+
+
+
+        # check if functions work correctly, raise exception otherwise
+        if not checkSorting(randomArray, randomArray_s):
+            raise Exception('%s: Error in selectionSort!' % i)
+        if not checkSorting(randomArray, randomArray_m):
+            raise Exception('%s: Error in mergeSort!' % i)
+        if not checkSorting(randomArray, randomArray_q):
+            raise Exception('%s: Error in quickSort!' % i)
 
         
-
+        
+    print "All arrays have been sorted correctly (no exception thrown)."
+        
+    # create fits to data
     sSortFit = 0.5*(xRange*xRange-xRange)
     mSortFit = xRange*np.log(xRange)
     qSortFit = xRange*np.log(xRange)
 
 
-        
+    # plot fits and data
     plt.plot(xRange, sSortCount, 'ro',
              xRange, sSortFit, 'k',
              xRange, mSortCount, 'g^',
@@ -188,5 +223,5 @@ if __name__ == "__main__":
 
 
 
-    correct = checkSorting(a, dummy)
-    print 'Did the sorting work? ---> {0}'.format(correct)
+    #correct = checkSorting(a, dummy)
+    #print 'Did the sorting work? ---> {0}'.format(correct)
