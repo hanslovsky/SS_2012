@@ -152,7 +152,7 @@ if __name__ == "__main__":
     # to be sorted
 
     
-    maxArrayLength = 10
+    maxArrayLength = 100
     
     xRange = np.arange(1, maxArrayLength + 1)
     sSortCount = [0]*maxArrayLength
@@ -165,6 +165,7 @@ if __name__ == "__main__":
     
     
     for i in xRange:
+        print i
 
         # create temporary counters for merge and quick sort
         tmpCountMerge = [0]
@@ -179,24 +180,26 @@ if __name__ == "__main__":
 
         # create timers for selection, merge, quick sort
         init = """
-               import sort
-               import copy
-               randomArray   = [random.randint(0,1000) for r in xrange(i)]
-               randomArray_c = copy.deepcopy(randomArray)
-               """
+import sort
+import copy
+import random
+randomArray   = [random.randint(0,1000) for r in xrange(%d)]
+randomArray_c = copy.deepcopy(randomArray)
+""" % i
 
 
-        prog_s = """sort.selectionSort(randomArray_s)"""
-        prog_m = """sort.mergeSort(randomArray_m)"""
-        prog_q = """sort.quickSort(randomArray_q)"""
+        prog_s = """sort.selectionSort(randomArray_c)"""
+        prog_m = """sort.mergeSort(randomArray_c)"""
+        prog_q = """sort.quickSort(randomArray_c, 0, %d, [0])""" % (i - 1)
         
         timer_s = timeit.Timer(prog_s, init)
         timer_m = timeit.Timer(prog_m, init)
         timer_q = timeit.Timer(prog_q, init)
 
-        sSortTime[i-1] = 0.1*timer_s.timeit(10)
-        mSortTime[i-1] = 0.1*timer_m.timeit(10)
-        qSortTime[i-1] = 0.1*timer_q.timeit(10)
+        reps = 1000
+        sSortTime[i-1] = 1.0/reps*(timer_s.timeit(reps))
+        mSortTime[i-1] = 1.0/reps*(timer_m.timeit(reps))
+        qSortTime[i-1] = 1.0/reps*(timer_q.timeit(reps))
 
 
         # sort arrays and save number of comparisons
@@ -253,7 +256,11 @@ if __name__ == "__main__":
     t2 = plt.plot(xRange, mSortTime, 'g^')
     t3 = plt.plot(xRange, qSortTime, 'bs')
 
-    plt.legend([t1, t2, t3], ["selection sort", "merge sort", "quick sort"])
+    plt.xlabel('array length')
+    plt.ylabel('computation time')
+    plt.title('computation time for various sort algorithms')
+
+    plt.legend([t1, t2, t3], ["selection sort", "merge sort", "quick sort"], loc = 2)
     plt.show()
 
 
