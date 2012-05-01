@@ -99,9 +99,9 @@ def partition(array, l, r, counter):
         if i >= j:
             break
 
-    #print  array, array[j], array[i], pivot, "array array[j] array[i] pivot"
-    if array[i] > pivot:
         array[i], array[j] = array[j], array[i]
+    if array[i] > pivot:
+        array[i], array[r] = array[r], array[i]
         
 
     
@@ -152,14 +152,17 @@ if __name__ == "__main__":
     # to be sorted
 
     
-    maxArrayLength = 50
+    maxArrayLength = 10
     
     xRange = np.arange(1, maxArrayLength + 1)
     sSortCount = [0]*maxArrayLength
     mSortCount = [0]*maxArrayLength
     qSortCount = [0]*maxArrayLength
 
-
+    sSortTime = [0]*maxArrayLength
+    mSortTime = [0]*maxArrayLength
+    qSortTime = [0]*maxArrayLength 
+    
     
     for i in xRange:
 
@@ -169,12 +172,31 @@ if __name__ == "__main__":
 
 
         # create random array and copies for selection, merge, quick sort
-        randomArray     = [random.randint(0,1000) for r in xrange(i)]
-        randomArray_s   = copy.deepcopy(randomArray)
-        randomArray_m   = copy.deepcopy(randomArray)
-        randomArray_q   = copy.deepcopy(randomArray)
+        randomArray   = [random.randint(0,1000) for r in xrange(i)]
+        randomArray_s = copy.deepcopy(randomArray)
+        randomArray_m = copy.deepcopy(randomArray)
+        randomArray_q = copy.deepcopy(randomArray)
+
+        # create timers for selection, merge, quick sort
+        init = """
+               import sort
+               import copy
+               randomArray   = [random.randint(0,1000) for r in xrange(i)]
+               randomArray_c = copy.deepcopy(randomArray)
+               """
 
 
+        prog_s = """sort.selectionSort(randomArray_s)"""
+        prog_m = """sort.mergeSort(randomArray_m)"""
+        prog_q = """sort.quickSort(randomArray_q)"""
+        
+        timer_s = timeit.Timer(prog_s, init)
+        timer_m = timeit.Timer(prog_m, init)
+        timer_q = timeit.Timer(prog_q, init)
+
+        sSortTime[i-1] = 0.1*timer_s.timeit(10)
+        mSortTime[i-1] = 0.1*timer_m.timeit(10)
+        qSortTime[i-1] = 0.1*timer_q.timeit(10)
 
 
         # sort arrays and save number of comparisons
@@ -203,24 +225,37 @@ if __name__ == "__main__":
         
     # create fits to data
     sSortFit = 0.5*(xRange*xRange-xRange)
-    mSortFit = xRange*np.log(xRange)
-    qSortFit = xRange*np.log(xRange)
+    mSortFit = 1.1*xRange*np.log(xRange)
+    qSortFit = 1.2*xRange*np.log(xRange) + xRange
 
 
     # plot fits and data
-    plt.plot(xRange, sSortCount, 'ro',
-             xRange, sSortFit, 'k',
-             xRange, mSortCount, 'g^',
-             xRange, mSortFit, 'k',
-             xRange, qSortCount, 'bs',
-             xRange, qSortFit, 'k')
+    p1 = plt.plot(xRange, sSortCount, 'ro')
+    p2 = plt.plot(xRange, sSortFit, 'k')
+    p3 = plt.plot(xRange, mSortCount, 'g^')
+    p4 = plt.plot(xRange, mSortFit, 'k')
+    p5 = plt.plot(xRange, qSortCount, 'bs')
+    p6 = plt.plot(xRange, qSortFit, 'k')
+
+    plt.legend([p1, p2, p3, p4, p5, p6], ["selection sort", "selection sort fit", "merge sort", "merge sort fit", "quick sort", "quick sort fit"], loc = 2)
+
+    plt.xlabel('array length')
+    plt.ylabel('number of comparisons')
+    plt.title('number of comparisons for various sort algorithms')
 
 
     
     plt.axis([0, xRange[-1] + 1, 0, sSortCount[-1] + 10])
     plt.show()
 
+    plt.figure()
+    t1 = plt.plot(xRange, sSortTime, 'ro')
+    t2 = plt.plot(xRange, mSortTime, 'g^')
+    t3 = plt.plot(xRange, qSortTime, 'bs')
+
+    plt.legend([t1, t2, t3], ["selection sort", "merge sort", "quick sort"])
+    plt.show()
 
 
-    #correct = checkSorting(a, dummy)
-    #print 'Did the sorting work? ---> {0}'.format(correct)
+
+
