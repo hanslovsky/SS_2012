@@ -24,11 +24,29 @@ def archimedes1(k):
     return edges, pi_lower, pi_upper, pi_upper-pi_lower
 
 
+
+def archimedes2(k):
+    """ algorithm of archimedes to compute pi.
+    Starting with a squre...
+    """
+
+    edges = 4*2**k
+    
+    pi_lower = sqrt(2.0)
+    pi_upper = 2.0
+    
+    for i in range(k):
+        pi_lower = pi_lower/sqrt(2.0+sqrt(4.0-pi_lower**2))
+        pi_upper = 2.0*pi_upper/(sqrt(4+pi_upper**2)+2)
+    
+    pi_lower = pi_lower*edges/2.0
+    pi_upper = pi_upper*edges/2.0
+    return edges, pi_lower, pi_upper, pi_upper-pi_lower
+
+
 if __name__ == "__main__":
 
-    #edges, pi_lower, pi_upper, diff = archimedes1(27)
-    #print edges, pi_lower, pi_upper, diff
-
+    
     ##compute estimates for different number of doublings
     doublings = 27
     xvalues = range(doublings)
@@ -54,3 +72,6 @@ if __name__ == "__main__":
     plt.axis([0, xvalues[-1] + 1, 2.5, 4.5])
     plt.show()
 
+    #archimedes2
+    edges, pi_lower, pi_upper, diff = archimedes2(28)
+    print edges, pi_lower, pi_upper, diff
