@@ -1,0 +1,50 @@
+\documentclass[a4paper]{article}
+
+%\usepackage{texments}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{minted}
+
+\usepackage[left=2.5cm, right=2.5cm, bottom=2.5cm,footskip=.5cm, top=2.5cm]{geometry}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+\definecolor{bg}{rgb}{0.950,.95,0.95}
+\newminted{pycon}{bgcolor=bg,linenos=false,tabsize=4}
+
+\begin{document}
+
+\section*{Aufgabe 1}
+%\subsection*{(2 a)}
+
+\begin{table}[h]
+\caption{Division by Substraction}
+\label{bookmarksavepage}\centering
+\begin{tabularx}{\textwidth}{XXXXXX}
+\toprule
+\textbf{Schritt} & \textbf{x} & \textbf{y} & \textbf{q} & \textbf{r} & $\mathbf{r+y\cdot q}$ \\\toprule
+$0$ & $31$ & $9$ & $0$ & $31$ & $31+9\cdot 0 = 31$ \\\midrule
+$1$ & $31$ & $9$ & $1$ & $22$ & $22+9\cdot 1 = 31$ \\\midrule
+$2$ & $31$ & $9$ & $2$ & $13$ & $13+9\cdot 2 = 31$ \\\midrule
+$3$ & $31$ & $9$ & $3$ & $4 $ & $4 +9\cdot 3 = 31$ \\\midrule
+
+\end{tabularx}
+\end{table}
+
+
+%\subsection*{(2b)}
+
+%\begin{pyconcode}
+
+%\end{pyconcode} 
+
+
+%\inputminted{python}{1.2.py}
+
+
+
+\end{document}
