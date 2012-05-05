@@ -23,8 +23,9 @@ scatter(training(1,:), training(2,:), 150, training(3,:), '>');
 qda_prediction_decision = zeros(100, 100);
 
 for k = 1:100
-    qda_prediction_decision(k, :) = perform_qda(mu0, mu1, covmat0, covmat1, p0, p1, [ones(1,100)*k; 1:100]); 
+    qda_prediction_decision(k, :) = 1 - perform_qda(mu0, mu1, covmat0, covmat1, p0, p1, [ones(1,100)*k; 1:100]); 
 end
+
 
 figure
 imagesc(qda_prediction_decision)

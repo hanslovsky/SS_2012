@@ -5,8 +5,8 @@ samples = size(testx, 2);
 
 % calculate ratio of likelihood for passing and failing
 likelihoodRatio = diag(p1/p0*sqrt(det(covmat0)/det(covmat1))*exp(1/2*( ...
-                    (testx - repmat(mu0, 1, samples))'*covmat0*(testx - repmat(mu0, 1, samples)) ...
-                  - (testx - repmat(mu1, 1, samples))'*covmat1*(testx - repmat(mu1, 1, samples)))));
+                    (testx - repmat(mu0, 1, samples))'*inv(covmat0)*(testx - repmat(mu0, 1, samples)) ...
+                  - (testx - repmat(mu1, 1, samples))'*inv(covmat1)*(testx - repmat(mu1, 1, samples)))));
 
 
 
