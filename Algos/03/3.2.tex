@@ -1,0 +1,54 @@
+\documentclass[a4paper]{article}
+
+%\usepackage{texments}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{minted}
+
+\usepackage[left=2.5cm, right=2.5cm, bottom=2.5cm,footskip=.5cm, top=2.5cm]{geometry}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+\definecolor{bg}{rgb}{0.950,.95,0.95}
+\newminted{pycon}{bgcolor=bg,linenos=false,tabsize=4}
+
+\begin{document}
+
+\section*{Aufgabe 2}
+\subsection*{(2 c)}
+Es gilt
+\begin{equation}
+\bar{s}_{2n}=\frac{s_n}{\sqrt{2+\sqrt{4-s_n^2}}}\qquad und\qquad
+s_{2n}=\sqrt{2-\sqrt{4-s_n^2}}.
+\end{equation}
+Es folgt
+\begin{equation}
+\frac{s_{2n}^2}{\bar{s_{2n}}^2}=\frac{(2-\sqrt{4-s_n^2})(2+\sqrt{4-s_n^2})}{s_n^2}=\frac{4-(4-s_n^2)}{s_n^2}=1,
+\end{equation}
+wobei die Binomische Formel, $(a+b)(a-b)=a^2-b^2$, benutzt wurde.\\
+Es gilt
+\begin{equation}
+\bar{t_{2n}}=\frac{2t_n}{\sqrt{4+t_n^2}+2}\qquad und \qquad 
+t_{2n}=\frac{2}{t_n}\left(\sqrt{4+t_n^2}-2\right).
+\end{equation}
+Es folgt
+\begin{equation}
+\frac{t_{2n}}{\bar{t_{2n}}}=\frac{2(\sqrt{4+t_n^2}-2)(\sqrt{4+t_n^2}+2)}{2t_n^2}=1.
+\end{equation}
+Also gilt $\bar{s_{2n}}=s_{2n}$ und $\bar{t_{2n}}=t_{2n}$.
+%\subsection*{(2b)}
+
+%\begin{pyconcode}
+
+%\end{pyconcode} 
+
+
+%\inputminted{python}{1.2.py}
+
+
+
+\end{document}
