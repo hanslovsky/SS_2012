@@ -1,17 +1,21 @@
 function [lambdas, variance, pc] = pca(data)
 
-m = size(data, 1)
-n = size(data, 2)
+[p, n] = size(data);
 
-data_centered = data - repmat(mean(data), m);
-all(all(cov(data_centered) == cov(data)))
 
-% [U,S,V] = svd(data);
-% 1
-% [pc, lambdas] = eig(U*S*S'*U');
-% 2
-% lambdas       = diag(lambdas);
-% 3
-% variance      = diag(S);
-% 4
+
+ 
+data_centered = data - repmat(mean(data, 2), 1, n);
+
+
+[U,S,V]  = svd(data_centered, 'econ');
+
+pc       = U;
+variance = diag(S).*diag(S)./(n-1);
+lambdas  = S*V';
+
+size(pc)
+size(variance)
+size(lambdas)
+
 
