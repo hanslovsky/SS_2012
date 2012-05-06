@@ -14,8 +14,6 @@ pc       = U;
 variance = diag(S).*diag(S)./(n-1);
 lambdas  = S*V';
 
-size(pc)
-size(variance)
-size(lambdas)
+
 
 

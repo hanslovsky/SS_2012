@@ -1,0 +1,199 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,right=1.5cm,top=2.0cm,bottom=2.8cm]{geometry}
+
+\usepackage[ngerman,american]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+%\usepackage{epstopdf}
+%\usepackage{sidecap}
+%\usepackage[FIGTOPCAP]{subfigure}
+\usepackage{float}
+\usepackage{color}
+\usepackage{empheq}
+\usepackage[footnotesize,bf]{caption}
+\usepackage{subcaption}
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}
+\theoremstyle{plain}
+\newtheorem{theo}[defi]{Theorem}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+\title{Exercise 3}
+\author{Philipp Hanslovsky, Robert Walecki}
+
+\begin{document}
+
+\maketitle
+
+\section*{3.1.1 - Implementation of PCA}
+\begin{lstlisting}
+function [lambdas, variance, pc] = pca(data)
+
+[p, n] = size(data);
+
+
+
+ 
+data_centered = data - repmat(mean(data, 2), 1, n);
+
+
+[U,S,V]  = svd(data_centered, 'econ');
+
+pc       = U;
+variance = diag(S).*diag(S)./(n-1);
+lambdas  = S*V';
+\end{lstlisting}
+
+
+\section*{3.1.2 - Investigation of PCs}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{first_six_pc.eps}
+\caption{First six pcs of training data set. 17 components neccessary to explain 60\% of the variance, 323 components neccessary to explain 99\% of the variance.}
+\end{figure}
+
+\clearpage
+\section*{3.2.1 - Compression with generic PCs}
+\begin{lstlisting}
+function displayProjected(pc, data, n_comps)
+
+
+lambda = pc'*data;
+displayData((pc(:, 1:n_comps)*lambda(1:n_comps, :))')
+\end{lstlisting}
+
+\begin{figure}[h!]
+\begin{subfigure}[b]{0.3\textwidth}
+\centering
+\includegraphics[width=\textwidth]{5_all.eps}
+  \caption{all components explaining all variance}
+  
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.3\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{5_60.eps}
+  \caption{components explaining 60\% of variance}
+ 
+\end{subfigure}
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.3\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{5_99.eps}
+  \caption{components explaining 99\% of variance}
+  
+\end{subfigure}
+        \caption{compression with generic PCs}
+\label{fig:gen}
+\end{figure}
+
+
+\section*{3.2.2 - Compression with optimized PCs}
+\begin{figure}[h!]
+\begin{subfigure}[b]{0.3\textwidth}
+\centering
+\includegraphics[width=\textwidth]{5_only_all.eps}
+ \caption{all components explaining all variance}
+  
+\end{subfigure}%
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.3\textwidth}
+\centering
+\includegraphics[width=\textwidth]{5_only_60.eps}
+\caption{components explaining 60\% of variance}
+ 
+\end{subfigure}
+~ %add desired spacing between images, e. g. ~, \quad, \qquad etc. 
+%(or a blank line to force the subfigure onto a new line)
+\begin{subfigure}[b]{0.3\textwidth}
+\centering
+\includegraphics[width=\textwidth]{5_only_99.eps}
+\caption{components explaining 99\% of variance}
+  
+\end{subfigure}
+\caption{compression with optimized PCs}
+\label{fig:opt}
+\end{figure}
+
+With optimized principal components results get better in comparison to generic pcs, especially for low numbers of principal components. With as many pcs as needed to account for 60\% of the variance one cannot identify the symbol as a five for generic pcs, whereas you can tell the symbol is a five for optimized pcs.
+
+Comparing the compressed symbols with the original symbol one can see artifacts, even when accounting for all of the variance. The artifacts aren't as present with the optimized pcs and the reproduces image of the symbol five is closer to the original one than it is with generic pcs (compare figures \ref{fig:gen}, \ref{fig:opt}, \ref{fig:3080}).
+
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{3080.eps}
+\caption{symbol \#3080 from training dataset}
+\label{fig:3080}
+\end{figure}
+
+\clearpage
+\section*{ex03.m - source code}
+
+
+\begin{lstlisting}
+clear; close all; clc;
+
+fprintf('loading data\n');
+load('digits.mat');
+
+% (1a)
+[lambdas, variance, pc] = pca(training);
+
+
+% (1b) plot first 6 pc
+displayData(pc(:, 1:6)');
+variance_share = cumsum(variance);
+variance_share = variance_share/variance_share(end);
+indices        = find(variance_share >= 0.6);
+comps_60       = indices(1)
+indices        = find(variance_share >= 0.99);
+comps_99       = indices(1)
+
+fprintf('Program paused. Press enter to continue.\n');
+pause
+
+displayProjected(pc, training(:, 3080), 784);
+fprintf('Program paused. Press enter to continue.\n');
+pause
+displayProjected(pc, training(:, 3080), comps_60);
+fprintf('Program paused. Press enter to continue.\n');
+pause
+displayProjected(pc, training(:, 3080), comps_99);
+fprintf('Program paused. Press enter to continue.\n');
+pause
+
+
+[lambdas, variance, pc] = pca(training(:, training_label==5));
+variance_share = cumsum(variance);
+variance_share = variance_share/variance_share(end);
+indices        = find(variance_share >= 0.6);
+comps_60       = indices(1);
+indices        = find(variance_share >= 0.99);
+comps_99       = indices(1);
+
+figure
+displayProjected(pc, training(:, 3080), size(pc, 2));
+fprintf('Program paused. Press enter to continue.\n');
+pause
+displayProjected(pc, training(:, 3080), comps_60);
+fprintf('Program paused. Press enter to continue.\n');
+pause
+displayProjected(pc, training(:, 3080), comps_99);
+\end{lstlisting}
+
+\end{document}

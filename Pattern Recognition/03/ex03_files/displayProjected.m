@@ -1,3 +1,5 @@
-function displayProjected(pc, data, lambda, n_comps)
+function displayProjected(pc, data, n_comps)
 
-displayData((pc(:, 1:n_comps)*lambda(1:n_comps, 3080))')
+
+lambda = pc'*data;
+displayData((pc(:, 1:n_comps)*lambda(1:n_comps, :))')
