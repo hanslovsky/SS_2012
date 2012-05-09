@@ -20,7 +20,7 @@ class Deque:
 
 
     def size(self):
-        self._size
+        return self._size
 
     def capacity(self):
         return self._capacity
