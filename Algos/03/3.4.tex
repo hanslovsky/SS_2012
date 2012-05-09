@@ -1,0 +1,50 @@
+\documentclass[a4paper]{article}
+
+%\usepackage{texments}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+%\usepackage{minted}
+
+\usepackage[left=2.5cm, right=2.5cm, bottom=2.5cm,footskip=.5cm, top=2.5cm]{geometry}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+\definecolor{bg}{rgb}{0.950,.95,0.95}
+%\newminted{pycon}{bgcolor=bg,linenos=false,tabsize=4}
+
+\begin{document}
+
+\section*{Aufgabe 4}
+\subsection*{(4 a)}
+
+\begin{table}[h]
+\caption{Vorbedingungen und Nachbedingungen für Deque Funktionen}
+\label{bookmarksavepage}\centering
+\begin{tabularx}{\textwidth}{X|X|X}
+\toprule
+Funktion & Vorbedingungen & Nachbedingungen \\\midrule
+Konstruktor q.Deque(N) & type(N) == int & $q\,\in\,Deque$ \\
+& N $\geq$ 1 & Kapazität von q == N \\\midrule
+q.size() & $q\,\in\,Deque$ & q wird durch die Funktion nicht verändert \\
+& & Rückgabewert entspricht der tatsächlichen Größe \\\midrule
+q.capacity() & $q\,\in\,Deque$ & q wird durch die Funktion nicht verändert \\
+& & Rückgabewert entspricht der tatsächlichen Kapazität \\\midrule
+q.push(x) & $q\,\in\,Deque$ & Das letzte Arrayelemnt hat den Wert x \\
+& x ist ein gültiger Typ und Wert (für die Implementation in Python spielt das keine Rolle, da eine Liste Variablen unterschiedlicher beliebiger Typen halten kann) & falls die Größe nicht der Kapazität entspricht, wird sie um eins erhöht \\\midrule
+x = q.popLast() & $q\,\in\,Deque$ & Länge von q wird um eins vermindert \\
+& q ist nicht leer & x hat den Wert des entfernten Elements \\\midrule
+x = q.popFirst() & $q\,\in\,Deque$ & Länge von q wird um eins vermindert \\
+& q ist nicht leer & x hat den Wert des entfernten Elements \\\bottomrule
+
+
+
+\end{tabularx}
+\end{table}
+
+
+
+\end{document}
