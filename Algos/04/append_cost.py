@@ -8,8 +8,8 @@ import numpy as np
 if __name__ == "__main__":
 
 
-    upperLimit = 1000
-    reps = 1000
+    upperLimit = 1000000
+    reps = 1000000
     xRange = np.arange(upperLimit) + 1
     appendTime = np.zeros(upperLimit)
 
