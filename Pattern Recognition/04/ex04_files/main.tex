@@ -1,0 +1,106 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,right=1.5cm,top=2.0cm,bottom=2.8cm]{geometry}
+
+\usepackage[ngerman,american]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{epstopdf}
+%\usepackage{sidecap}
+%\usepackage[FIGTOPCAP]{subfigure}
+\usepackage{float}
+\usepackage{color}
+%\usepackage{empheq}
+\usepackage[footnotesize,bf]{caption}
+\usepackage{subcaption}
+%\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}
+\theoremstyle{plain}
+\newtheorem{theo}[defi]{Theorem}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+\title{Exercise 4}
+\author{Philipp Hanslovsky, Robert Walecki}
+
+\begin{document}
+
+\maketitle
+
+\section*{4.1.1}
+
+
+The example trains a multi layer perceptron (MLP) using the input array x containg 20 values ranging from 0 to 1 and the target array t, which holds one value for each corresponding value of x. x and t form a sine function distorted by random values. The MLP has one input, three hidden units (perceptrons) and produces a single output. It is created by the command net = mlp(nin, nhidden, nout, outfunction). netopt optimizes the MLP based on input x and target t. Finally a prediction is made (mlpfwd) for an input array plotvals containing 101 values ranging from 0 to 1. The resulting array y is then shown in a plot (see fig \ref{fig:MLP}). Even with the highly distorted sine used for training and using only 3 hidden units the MLP applied to plotvals produces a function close to a sine. The result of increasing the number of hidden units is shown in fig \ref{fig:MLP-50} for 50 hidden units and in fig \ref{fig:MLP-100} for 100 hidden units.
+
+
+\begin{figure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-1_1.eps}
+\caption{target array t used for MLP training}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-1_2.eps}
+\caption{output of applying MLP on input array plotvals}
+\end{subfigure}
+
+\centering
+\caption{Plots of Training Dataset and output (3 hidden units)}
+\label{fig:MLP}
+\end{figure}
+
+
+\begin{figure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-1_1-50.eps}
+\caption{target array t used for MLP training}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-1_2-50.eps}
+\caption{output of applying MLP on input array plotvals}
+\end{subfigure}
+
+\centering
+\caption{Plots of Training Dataset and output (50 hidden units)}
+\label{fig:MLP-50}
+\end{figure}
+
+\begin{figure}
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-1_1-100.eps}
+\caption{target array t used for MLP training}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.45\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-1_2-100.eps}
+\caption{output of applying MLP on input array plotvals}
+\end{subfigure}
+
+\centering
+\caption{Plots of Training Dataset and output (100 hidden units)}
+\label{fig:MLP-100}
+\end{figure}
+
+
+\section*{4.1.2}
+
+Increasing the weight of the noise results in 
+
+
+\end{document}
