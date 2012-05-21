@@ -1,0 +1,186 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,right=1.5cm,top=2.0cm,bottom=2.8cm]{geometry}
+
+\usepackage[ngerman,american]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{epstopdf}
+%\usepackage{sidecap}
+%\usepackage[FIGTOPCAP]{subfigure}
+\usepackage{float}
+\usepackage{color}
+%\usepackage{empheq}
+\usepackage[footnotesize,bf]{caption}
+\usepackage{subcaption}
+%\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+\usepackage{pdfpages}
+
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}
+\theoremstyle{plain}
+\newtheorem{theo}[defi]{Theorem}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+\title{\"Ubung 4}
+\author{Philipp Hanslovsky, Frederick Bluemnthal}
+
+
+\begin{document}
+\maketitle
+
+
+\includepdf[pages=-]{4_1.pdf}
+
+\section*{4.2}
+
+
+Die Laufzeiten der Algorithmen sind in Tabelle \ref{tab:LZ} in den jeweiligen Intervallen in aufsteigender Reihenfolge sortiert und in Abb. \ref{fig:LZ} in den Intervallen 0...9 bzw. 0...100 graphisch dargestellt. In Tabelle \ref{tab:asy} sind die entsprechenden asymptotischen Komplexit\"aten $\beta_i$ dargestellt. In Abb. \ref{fig:Kompl} sind die $\beta_i$ graphisch dargestellt. Hier wird ersichtlich, dass asymptotische Komplexit\"at und Laufzeit erst im Intervall 98... \"ubereinstimmen, d.h. f\"ur gro\ss e N, daher auch der Name asymptotische Komplexit\"at.
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+Intervall & 1 & 2 & 3 \\\hline
+ 0 ... 1 & $\alpha_2(N)$ & $\alpha_3(N)$ & $\alpha_1(N)$ \\\hline
+ 1 ... 5 & $\alpha_3/N)$ & $\alpha_1(N)$ & $\alpha_2(N)$ \\\hline
+ 5 ... 8 & $\alpha_1(N)$ & $\alpha_3(N)$ & $\alpha_2(N)$ \\\hline
+ 8 ...98 & $\alpha_1(N)$ & $\alpha_2(N)$ & $\alpha_3(N)$ \\\hline
+98...   & $\alpha_2(N)$ & $\alpha_1(N)$ & $\alpha_3(N)$ \\\hline
+\end{tabular}
+\caption{Intervalle und Laufzeiten der Algorithmen in aufsteigender Reihenfolge (vgl. Abb. \ref{fig:LZ})}
+\label{tab:LZ}
+\end{table}
+
+\begin{figure}[h!]
+\centering
+\begin{subfigure}{0.45\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4_2_1.eps}
+\caption{Intervall 0...9}
+\end{subfigure}
+~
+\begin{subfigure}{0.45\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4_2_2.eps}
+\caption{Intervall 0...100}
+\end{subfigure}
+\caption{Laufzeiten der Algorithmen f\"ur die ersten 9 bzw. 100 N.}
+\label{fig:LZ}
+\end{figure}
+
+\begin{table}
+\centering
+\begin{tabular}{|c|l|}
+\hline
+Algorithmus & asymptotische Komplexit\"at \\\hline
+$\alpha_1(N)$ & $\beta_1(N)=N^2$ \\\hline
+$\alpha_2(N)$ & $\beta_2(N)=N\log_2(N)$ \\\hline
+$\alpha_3(N)$ & $\beta_3(N)=2^N$ \\\hline
+\end{tabular}
+\caption{Algorithmen und zugeh\"orige asymptotische Komplexit\"aten}
+\label{tab:asy}
+\end{table}
+
+\begin{figure}
+\centering
+\begin{subfigure}{0.45\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4_2_3.eps}
+\caption{Intervall 0...9}
+\end{subfigure}
+~
+\begin{subfigure}{0.45\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4_2_4.eps}
+\caption{Intervall 0...100}
+\end{subfigure}
+\caption{Asymptotische Komplexit\"aten f\"ur die ersten 9 bzw. 100 N.}
+\label{fig:Kompl}
+\end{figure}
+
+\section*{4.3}
+F\"ur jede Primzahl p muss man $\frac{N}{p}$ Labels setzen (Vielfache der Primzahl als Nichtprim markieren). Hinzu kommen $\sqrt{N}-1$ Vergleiche, ob eine Zahl bereits als Nichtprim markiert wurde (die Schleife l\"auft von 2 bis $\sqrt{N}$. Das f\"uhrt zum Ergebnis aus der Aufgabenstellung (vgl. Gl. \ref{eq:sieve}. In Abb. \ref{fig:sieve} wird diese Komplexit\"at auch best\"atigt.
+
+\begin{equation}
+O(\sqrt{N}-2 + \sum_{p\le N}\frac{N}{p}) \approx O(N\sum_{p\le N}\frac{1}{p}) = O(N\log\log(N))
+\label{eq:sieve}
+\end{equation}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{4_3.eps}
+\caption{Komplexit\"at und Z\"ahlvariable mit einer Konstante multipliziert}
+\label{fig:sieve}
+\end{figure}
+
+\clearpage
+
+
+\section*{4.4.1}
+Die Zeit, die f\"ur append() ben\"otigt wird, ist nicht konstant, das Python Array ist also dynamisch (vgl. Abb. \ref{fig:arr}).
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{4_4.eps}
+\caption{Zeit f\"ur append() in Abh\"angigkeit von der Arrayl\"ange}
+\label{fig:arr}
+\end{figure}
+
+
+\section*{4.4.2}
+siehe Datei matrixmulti.py
+
+\section*{Bonus}
+
+\scriptsize
+\begin{verbatim}
+
+
+int
+PyList_Append(PyObject *op, PyObject *newitem)
+{
+    if (PyList_Check(op) && (newitem != NULL))
+        return app1((PyListObject *)op, newitem);
+    PyErr_BadInternalCall();
+    return -1;
+}
+\end{verbatim}
+\normalsize
+Falls das anzuf\"ugende Element kein Nullzeiger ist, wird app1((PyListObject *)op, newitem) zur\"uckgegeben.
+\scriptsize
+\begin{verbatim}
+static int
+app1(PyListObject *self, PyObject *v)
+{
+    Py_ssize_t n = PyList_GET_SIZE(self);
+
+    assert (v != NULL);
+    if (n == PY_SSIZE_T_MAX) {
+        PyErr_SetString(PyExc_OverflowError,
+            "cannot add more objects to list");
+        return -1;
+    }
+
+    if (list_resize(self, n+1) == -1)
+        return -1;
+
+    Py_INCREF(v);
+    PyList_SET_ITEM(self, n, v);
+    return 0;
+}
+\end{verbatim}
+\normalsize
+Falls die Listenl\"ange innerhalb des erlaubten Maximums f\"ur Python ist (PY\_SSIZE\_T\_MAX), wird die Liste vergr\"o\ss ert (list\_resize(self, n+1)). Ob und um wie viel die Liste vergr\"o\ss ert wird, h\"angt hierbei von der Kapazit\"at und der Belegung der Liste ab. Das Python Array ist also dynamisch.
+
+
+
+
+\end{document}
