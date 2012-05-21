@@ -43,6 +43,7 @@ The example trains a multi layer perceptron (MLP) using the input array x contai
 
 
 \begin{figure}
+\centering
 \begin{subfigure}[b]{0.45\textwidth}
 \centering
 \includegraphics[width=\textwidth]{4-1-1_1.eps}
@@ -55,13 +56,14 @@ The example trains a multi layer perceptron (MLP) using the input array x contai
 \caption{output of applying MLP on input array plotvals}
 \end{subfigure}
 
-\centering
+
 \caption{Plots of Training Dataset and output (3 hidden units)}
 \label{fig:MLP}
 \end{figure}
 
 
 \begin{figure}
+\centering
 \begin{subfigure}[b]{0.45\textwidth}
 \centering
 \includegraphics[width=\textwidth]{4-1-1_1-50.eps}
@@ -74,7 +76,7 @@ The example trains a multi layer perceptron (MLP) using the input array x contai
 \caption{output of applying MLP on input array plotvals}
 \end{subfigure}
 
-\centering
+
 \caption{Plots of Training Dataset and output (50 hidden units)}
 \label{fig:MLP-50}
 \end{figure}
@@ -97,10 +99,331 @@ The example trains a multi layer perceptron (MLP) using the input array x contai
 \label{fig:MLP-100}
 \end{figure}
 
-
+\clearpage
 \section*{4.1.2}
 
-Increasing the weight of the noise results in 
+Increasing the weight of the noise results in badly trained MLPs. The MLPs cannot predict a sine function anymore. Fig \ref{fig:noise_train} and \ref{fig:noise_pred} show the target data used for training the MLPs and the corresponding predictions. With a noise factor bigger than or equal to 0.6 the prediction is totally off. Therefore data with only little noise should be chosen for training.
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{0.23\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-2_1-000.eps}
+\caption{0}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.23\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-2_1-060.eps}
+\caption{0.6}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.23\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-2_1-140.eps}
+\caption{1.4}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.23\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-2_1-200.eps}
+\caption{2}
+\end{subfigure}
+
+
+\caption{training data for various noise factors}
+\label{fig:noise_train}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{0.23\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-2_2-000.eps}
+\caption{0}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.23\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-2_2-060.eps}
+\caption{0.6}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.23\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-2_2-140.eps}
+\caption{1.4}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.23\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4-1-2_2-200.eps}
+\caption{2}
+\end{subfigure}
+
+
+\caption{prediction for various noise factors}
+\label{fig:noise_pred}
+\end{figure}
+
+
+\section*{4.2.1}
+
+Fig \ref{fig:4.2.1_train} - \ref{fig:4.2.1_bound} show the scatter plots of the predictions as well as of the original labels and the decision boundaries. As you can see in the decision boundary plots training the MLP seems to be some kind of lottery (four different results in five tries!). The classification rates are to be found on the corresponding plots.
+
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{training_1.eps}
+\caption{}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{training_2.eps}
+\caption{}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{training_3.eps}
+\caption{}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{training_4.eps}
+\caption{}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{training_5.eps}
+\caption{}
+\end{subfigure}
+
+\caption{Predictions for the training dataset: Blue means pass, red means fail. The circles are the predictions, the triangles are the actual labels. The classification rate is shown on top of each plot.}
+\label{fig:4.2.1_train}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{test_1.eps}
+\caption{}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{test_2.eps}
+\caption{}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{test_3.eps}
+\caption{}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{test_4.eps}
+\caption{}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{test_5.eps}
+\caption{}
+\end{subfigure}
+
+\caption{Predictions for the test dataset: Blue means pass, red means fail. The circles are the predictions, the triangles are the actual labels. The classification rate is shown on top of each plot.}
+\label{fig:4.2.1_test}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{boundary1.pdf}
+\caption{}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{boundary2.pdf}
+\caption{}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{boundary3.pdf}
+\caption{}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{boundary4.pdf}
+\caption{}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.18\textwidth}
+\centering
+\includegraphics[width=\textwidth]{boundary5.pdf}
+\caption{}
+\end{subfigure}
+
+\caption{Decision boundaries: Blue is pass. Even though using the same dataset and parameters for the training of the MLPs they significantly vary in their predictions.}
+\label{fig:4.2.1_bound}
+\end{figure}
+
+\clearpage
+\section*{4.2.2}
+
+Increasing both the number of hidden units and the number of iterations improve the classification result. However, the number of hidden units should not be chosen too high to avoid overfitting of the data. The choice of the number of iterations is a questions of precision as well as time. A larger number of iterations always yields in better results, but will naturally need more time to run. Using a logistic function instead of a linear one did not improve classification (see fig \ref{fig:4.2.2_train} - \ref{fig:4.2.2_bound}).
+On account of the observations in section 4.2.1 only vague predictions on the effects of changing the parameters are possible.
+
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{training_nhidden=100,ncycles=1000,outfunction=linear.eps}
+\caption{hidden units: 100, iterations: 1000, function: linear}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{training_nhidden=100,ncycles=1000,outfunction=logistic.eps}
+\caption{hidden units: 100, iterations: 1000, function: logistic}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{training_nhidden=100,ncycles=1000,outfunction=linear.eps}
+\caption{hidden units: 100, iterations: 5000, function: logistic}
+\end{subfigure}
+
+\caption{Predictions for the training dataset: Blue means pass, red means fail. The circles are the predictions, the triangles are the actual labels. The classification rate is shown on top of each plot.}
+\label{fig:4.2.2_train}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{test_nhidden=100,ncycles=1000,outfunction=linear.eps}
+\caption{hidden units: 100, iterations: 1000, function: linear}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{test_nhidden=100,ncycles=1000,outfunction=logistic.eps}
+\caption{hidden units: 100, iterations: 1000, function: logistic}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{test_nhidden=100,ncycles=1000,outfunction=linear.eps}
+\caption{hidden units: 100, iterations: 5000, function: logistic}
+\end{subfigure}
+
+\caption{Predictions for the test dataset: Blue means pass, red means fail. The circles are the predictions, the triangles are the actual labels. The classification rate is shown on top of each plot.}
+\label{fig:4.2.2_test}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{boundary100,ncycles=1000,outfunction=linear.pdf}
+\caption{hidden units: 100, iterations: 1000, function: linear}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{boundary100,ncycles=1000,outfunction=logistic.pdf}
+\caption{hidden units: 100, iterations: 1000, function: logistic}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{boundary100,ncycles=1000,outfunction=linear.pdf}
+\caption{hidden units: 100, iterations: 5000, function: logistic}
+\end{subfigure}
+
+\caption{Decision Boundaries for different MLPs. Blue is pass.}
+\label{fig:4.2.2_bound}
+\end{figure}
+
+
+
+\section*{4.2.3}
+A number close to 100 seems to be a good choice for the number of hidden units to both avoid overfitting and get a high enough dimensionality at the same time. We chose it to be 95. A high number of iterations yields in a better result and time was not a factor so we chose the number of iterations to be 5000 rather than 1000. As stated above the choice of function does not seem to matter, thus we arbitrarily chose a logistic function.
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4_2_3_training.eps}
+\caption{Training}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4_2_3_test.eps}
+\caption{Test}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{4_2_3_boundary.pdf}
+\caption{Decision Boundary}
+\end{subfigure}
+
+\caption{Classification of training data as well as test data and decision boundary. The parameters are: hidden units - 95, iterations - 5000, function - logistic}
+\label{fig:4.2.3}
+\end{figure}
+
+\clearpage
+\section*{4.3}
+
+Both QDA and Gaussian RBF (GRBF) use normal distributions, therefore they assume the data is normally distributed in feature space. (However, the Gaussian functions are not normalized in GRBF, that is accounted for by the weights). QDA takes into account the prior and maximizes $p(y_i|x)$ with respect to $y_i$ the probability as a product of exponential functions (see eq \ref{eq:qda}). GRBF does not make use of the prior, however it uses the weight and then maximizes the weighted sum (linear combination) of all functions. 
+
+\begin{equation}
+p(y_i|x) = p(y_i)const\exp(-1/2(x-\mu_i)^T\Sigma_i^{-1}(x-\mu_i))
+\label{eq:qda}
+\end{equation}
+
+The decision boundary is similar to that of QDA, however it is not restricted to quadric surfaces as it is a linear combination of exponential functions. The classification rates are shown in fig \ref{fig:4.3}. They are a bit lower than compared to when using MLP. Naturally one might think that GRBF is the better choice as it is related to QDA and the decision boundary can be expected to be somewhat circular. However, the results speak differently which might be explained by outliers, caused by e.g. students who just needed to pass the exams (and did not go for a good grade) and then prepared well for the oral exams or others who had a lucky shot on one of the exams or lost motivation throughout the semester. Therefore MLP is the better choice be cause it seems to adapt better to that kind of situation.
+
+
+\begin{figure}
+\centering
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{gauss_training.eps}
+\caption{Training}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{gauss_test.eps}
+\caption{Test}
+\end{subfigure}
+~
+\begin{subfigure}[b]{0.31\textwidth}
+\centering
+\includegraphics[width=\textwidth]{gauss_boundary.pdf}
+\caption{Decision Boundary}
+\end{subfigure}
+
+\caption{Classification of training data as well as test data and decision boundary using GRBF.}
+\label{fig:4.3}
+\end{figure}
 
 
 \end{document}

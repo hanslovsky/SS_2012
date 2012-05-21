@@ -44,12 +44,12 @@ outfunction = 'linear'; % outfunction (linear, logistic)
 
 
 % 4.2
-% load('student-scores.mat');
-% nin = 2;
-% nhidden = 3;
-% nout = 1;
-% t = (training(3,:) - (training(3,:) == 0))';
-% x = training(1:2, :)';
+load('student-scores.mat');
+nin = 2;
+nhidden = 3;
+nout = 1;
+t = (training(3,:) - (training(3,:) == 0))';
+x = training(1:2, :)';
 
 % 4.2.1
 % for i=1:5
@@ -98,14 +98,14 @@ outfunction = 'linear'; % outfunction (linear, logistic)
 
 % 4.2.2
 
-nhidden = 100;
-producePlots(x, t, training, test, nin, nhidden, nout, outfunction, ncycles);
-
-outfunction = 'logistic';
-producePlots(x, t, training, test, nin, nhidden, nout, outfunction, ncycles);
-
-ncycles = 5000;
-producePlots(x, t, training, test, nin, nhidden, nout, outfunction, ncycles);
+% nhidden = 100;
+% producePlots(x, t, training, test, nin, nhidden, nout, outfunction, ncycles);
+% 
+% outfunction = 'logistic';
+% producePlots(x, t, training, test, nin, nhidden, nout, outfunction, ncycles);
+% 
+% ncycles = 5000;
+% producePlots(x, t, training, test, nin, nhidden, nout, outfunction, ncycles);
 
 
 % 4.2.3
@@ -117,7 +117,60 @@ producePlots(x, t, training, test, nin, nhidden, nout, outfunction, ncycles);
 % 
 % producePlots(x, t, training, test, nin, nhidden, nout, outfunction, ncycles);
 
-% 4.3.1
+% 4.3
+nin = 2;
+nhidden = 2;
+nout = 1;
+net = rbf(nin, nhidden, nout, 'gaussian');
+
+
+options = zeros(1,18);
+options(1) = 1;
+options(9) = 1;
+options(14) = 1000; 
+net = rbftrain(net, options, x, t);
+
+
+h = figure;
+colormap(hsv(3));
+y = rbffwd(net, training(1:2, :)') > 0;
+scatter(training(1,:), training(2,:), 25, y, 'o');
+hold;
+scatter(training(1,:), training(2,:), 150, training(3, :), '>');
+rate = sum(y == training(3,:)')/size(y, 1);
+title(['classification rate = ' num2str(rate)], 'FontWeight', 'bold', 'FontSize', 18);
+saveas(h, 'gauss_training.eps', 'eps');
+% close all;
+
+h = figure;
+colormap(hsv(3));
+y = rbffwd(net, test(1:2, :)') > 0;
+scatter(test(1,:), test(2,:), 25, y, 'o');
+hold;
+scatter(test(1,:), test(2,:), 150, test(3, :), '>');
+rate = sum(y == test(3,:)')/size(y, 1);
+title(['classification rate = ' num2str(rate)], 'FontWeight', 'bold', 'FontSize', 18);
+saveas(h, 'gauss_test.eps', 'eps');
+% close all;
+
+
+decision_boundary = zeros(100, 100);
+
+for k = 1:100
+    y = rbffwd(net, [ones(1,100)*k; 1:100]') > 0;
+    decision_boundary(k, :) = y; 
+end
+
+
+h = figure;
+colormap(hsv(3));
+imagesc(decision_boundary);
+set(gca,'YDir','normal');
+saveas(h, 'gauss_boundary.pdf', 'pdf');
+% close all;
+
+
+
 
 
 
