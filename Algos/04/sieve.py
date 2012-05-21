@@ -71,4 +71,5 @@ if __name__ == "__main__":
 
     pl.plot(arrayOfNs, complexity, 'k', \
             arrayOfNs, const*numberOfOps, 'r<')
+    pl.legend(['N*loglogN', '1.35*counter'], loc = 2)
     pl.show()
