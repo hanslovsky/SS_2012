@@ -4,28 +4,16 @@ dic = {'+': operator.add, '-': operator.sub, "*": operator.mul,
        "/": operator.div, "0":0, "1":1, "2":2, "3":3, "4":4, "5":5, "6":6,
        "7":7, "8":8, "9":9}
 
-
-
-numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-
-
-
-#parantheses #paranthesis
-
-
-
-
 class Node:
     def __init__(self, key):
         self.key = key
-        #if key[0] == "(" and key[-1] == ")":
-        #    key = key[1:-1]
         self.left = None
         self.right = None
         
 
 def findBreakIndex(string_all):
-    
+    """ return operator of least priority
+    """
     breakindex = 0
     pthesis = 0
     prio = 1000
@@ -47,8 +35,10 @@ def findBreakIndex(string_all):
 
 
 def evalChildren(node):
-    
-    print node.key
+    """ build children nodes from node.key string expression
+    if node.key is a string of size>1, then the expression is 
+    further broken down into its components.
+    """
     if len(node.key) > 1:
         if node.key[0] == "(" and node.key[-1] == ")":
             node.key = node.key[1:-1]
@@ -61,34 +51,32 @@ def evalChildren(node):
         evalChildren(node.left)
         
 
-
 def buildTree(string_all):
+    """ recursively build the tree, starting at root
+    """
 
     root = Node(string_all)
     evalChildren(root)
     
     return root
 
-def readOutTree(tree):
+def calculateFromTree(tree):
+    """ calculate expression from tree
+    """
     if tree.left.left != None: # left child is operator
-        readOutTree(tree.left)
+        calculateFromTree(tree.left)
     if tree.right.left != None: #right child is operator
-        readOutTree(tree.right)
+        calculateFromTree(tree.right)
 
     #both children are numbers -> do operation
     if tree.left.left == None and tree.right.left == None:                    
         tree.key = dic[tree.key](int(tree.left.key), int(tree.right.key))
         tree.left = None
         tree.right = None
-        print tree.key
     return tree.key
 
-def evalString(string):
-    tree = buildTree(string)
-    result = readOutTree(tree)
 
-    return result
-
+#not needed anymore...
 def printTree(tree):
     node = tree
     if node != None:
@@ -98,33 +86,23 @@ def printTree(tree):
         printTree(tree.right)
 
 
+def evalString(string):
+    """ evaluate expression given as string
+    build tree from string, then calculate expression from tree
+    no checking that input string is correct...
+    """
+    tree = buildTree(string)
+    result = calculateFromTree(tree)
+
+    return result
+
+
 if __name__=='__main__':
 
-    #print dic['+'](dic["5"],dic["2"])
+    string_all = "2+5*3"
+    string_all2 = "2*4*(3+(4-7)*8)-(1-6)"
 
-    s1 = "+"
-
-    #if s1 in numbers:
-    #    print s1
-
-    string_all = "2+(5-3)"
-    string_all2 = "((3+4)+1)*4"
-    string_all3 = "(4+9-2+3*5-(2-2*4*3))"
-
-
-
-    last = None
-
-    breakindex = findBreakIndex(string_all2)
-
-    #print breakindex
-            
-    #print string_all[1:-1]        
-            
-    tree = buildTree(string_all2)
-
-    #printTree(tree)
-
-    result = evalString(string_all3)
-    print result
-    print "eval result: ", eval(string_all3)
+    result2 = evalString(string_all2)
+    print string_all2, "="
+    print "tree result: ", result2
+    print "eval (python) result: ", eval(string_all2)
