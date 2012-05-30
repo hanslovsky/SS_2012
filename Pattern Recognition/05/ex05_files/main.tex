@@ -1,0 +1,115 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,right=1.5cm,top=2.0cm,bottom=2.8cm]{geometry}
+
+\usepackage[ngerman,american]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{sidecap}
+% \usepackage[FIGTOPCAP]{subfigure}
+\usepackage{float}
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+%\usepackage{empheq}
+\usepackage[footnotesize,bf]{caption}
+\usepackage{subcaption}
+%\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}
+\theoremstyle{plain}
+\newtheorem{theo}[defi]{Theorem}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+\title{Exercise 5}
+\author{Philipp Hanslovsky, Robert Walecki}
+
+\begin{document}
+
+\lstset{language=Matlab,
+   keywords={break,case,catch,continue,else,elseif,end,for,function,
+      global,if,otherwise,persistent,return,switch,try,while},
+   basicstyle=\ttfamily,
+   keywordstyle=\color{blue},
+   commentstyle=\color{green!40!black},
+   stringstyle=\color{red},
+   numbers=left,
+   numberstyle=\tiny\color{white!50!black},
+   stepnumber=1,
+   numbersep=10pt,
+   backgroundcolor=\color{white},
+   tabsize=4,
+   showspaces=false,
+   showstringspaces=false,
+   frame=single}
+
+
+\maketitle
+\section*{5.1.1}
+\begin{align*}
+&\boldsymbol{x} &=& (x_1, x_2)^T \\
+&k(\boldsymbol{x}, \boldsymbol{z}) &=& (\boldsymbol{x}^T\boldsymbol{z})^3 \\
+&                                  &=& x_1^3z_1^3+3x_1^3z_1^2x_2z_2+3x_1z_1x_2^2z_2^2+x_2^3z_2^3 \\
+\Rightarrow &\boldsymbol{\Phi}(\boldsymbol{x}) &=& (x_1^3, \sqrt{3}x_1^2x_2, \sqrt{3}x_1x_2^2, x_2^3)^T \\
+&\Phi: &&\mathbb{R}^2 \mapsto \mathbb{R}^4
+\end{align*}
+
+
+\section*{5.1.2}
+\begin{align}
+k(\boldsymbol{x},\boldsymbol{z}) &= c*k_1(\boldsymbol{x},\boldsymbol{z}) &c=const \label{eq:lin} \\
+k(\boldsymbol{x},\boldsymbol{z}) &= \exp{(k_1(\boldsymbol{x},\boldsymbol{z})}& \label{eq:exp} \\
+k(\boldsymbol{x},\boldsymbol{z}) &= k_1(\boldsymbol{x},\boldsymbol{z})+k_2(\boldsymbol{x},\boldsymbol{z})& \label{eq:sum} \\
+k(\boldsymbol{x},\boldsymbol{z}) &= k_1(\boldsymbol{x},\boldsymbol{z})\cdot k_2(\boldsymbol{x},\boldsymbol{z})& \label{eq:prod} \\
+\end{align}
+
+\begin{align}
+&k(\boldsymbol{x},\boldsymbol{z})& = &\exp{\left(-\frac{\left(\boldsymbol{x}-\boldsymbol{z}\right)^2}{2\sigma^2}\right)}& \\
+&                                & = &\prod_{i=1}^3 \exp{\left(-\frac{k_i}{2\sigma^2}\right)}& \\
+&k'(\boldsymbol{x}, \boldsymbol{z})&=& \boldsymbol{x}^T\boldsymbol{z} &=& \boldsymbol{\Phi}^T\boldsymbol{\Phi}\\
+&k_1 &=& k'(\boldsymbol{x}, \boldsymbol{x})& \\
+&k_2 &=& k'(\boldsymbol{z}, \boldsymbol{z})& \\
+&k_3 &=& k'(\boldsymbol{x}, \boldsymbol{z})& \\
+&\Phi:  (x_1,\dots,x_n) \mapsto (x_1,\dots,x_n)& \\
+\end{align}
+
+$k_i$ are valid kernels as $k'$ can be expressed by a scalar product of a mapping of $\boldsymbol{x}$ and $\boldsymbol{z}$. According to equation \ref{eq:lin} $\tilde k_i = -\frac{k_i}{2\sigma^2}$ are valid kernels as well with $c=-\frac{1}{2\sigma^2}$. From equation \ref{eq:exp} we can see that $\exp\left(\tilde k_i\right)$ are valid kernels as well. Finally a product of valid kernels results in a valid kernel (equation \ref{eq:prod}).
+
+\clearpage
+\lstinputlisting[language=Matlab, caption={Gaussian kernel response in Matlab}, label = {lst:response}]{gaussian_kernel.m}
+\vspace{50pt}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/response.eps}
+\caption{Responses for various values of $\sigma$ (see plot titles).}
+\label{fig:response}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.49\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/surf_10.pdf}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.49\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/surf_15.pdf}
+\end{subfigure}
+\caption{surface plots for $\sigma=1$ and $\sigma=1.5$}
+\label{fig:surf}
+\end{figure}
+
+\section*{5.2.1}
+
+
+\end{document}
