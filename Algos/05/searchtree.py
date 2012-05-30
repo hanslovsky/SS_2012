@@ -12,7 +12,7 @@ def treeInsert(rootnode, key):
         return rootnode
     elif key < rootnode.key:
         rootnode.left = treeInsert(rootnode.left, key)
-    else
+    else:
         rootnode.right = treeInsert(rootnode.right, key)
     return rootnode
         
@@ -32,9 +32,9 @@ def treeRemove(rootnode, key):
     else:
         if rootnode.left is None and rootnode.right is None:
             rootnode = None
-        elif rootnode.left = None:
+        elif rootnode.left == None:
             rootnode = rootnode.right
-        elif rootnode.right = None:
+        elif rootnode.right == None:
             rootnode = rootnode.left
         else:
             pred = treePredecessor(rootnode)
@@ -53,3 +53,11 @@ def treeHasKey(rootnode, key):
     else:
         return treeHasKey(rootnode.right, key)
         
+
+def treeDepth(rootnode):
+    if rootnode == None:
+        return 0
+    else:
+        lDepth = treeDepth(rootnode.left)
+        rDepth = treeDepth(rootnode.right)
+    return max(lDepth, rDepth) + 1
