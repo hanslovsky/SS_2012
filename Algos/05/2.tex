@@ -23,10 +23,10 @@
 
 \section*{Aufgabe 1}
 
-\subsection*{(1 b)}
+\subsection*{(1 c)}
 Fügt man bei N Schlüsseln (in einem integer Baum) immer nur Schlüssel ein, deren Differenz zum Schlüssel der Parent Node $\pm 1$ ist, so erhält man im günstigsten Fall zwei vollständig unbalancierte Unterbäume der Tiefe N/2, im schlechtesten Fall einen Unterbaum der Länge N. Kann man die Reihenfolge frei wählen, ist es sinnvoll, den kürzesten Teilbaum entlangzugehen und an dessen Ende ein passendes Element einzufügen. Besonders geeignet sind hier Schlüssel, die nahe am Mittelwert der Eltern- bwz. Großelternschlüssel sind, wenn der Weg von den Großeltern zur neuen Node sowohl rechts als auch links enthält. Kommt man von den Großeltern über zweimal links/rechts zur neuen Node, nimmt man einen Schlüssel, der nahe am Mittelwert zwischen Elternschlüssel und einer unteren/oberen Schranke ist. Die untere/obere Schranke ist hierbei der Schlüssel der letzten Node, bei der man rechts/links abbiegen muss auf dem Weg zur neuen Node. Musste man nie auf rechts/links abbiegen, so ist die untere/obere Schranke der kleinste bzw. der größte einzusortierende Schlüssel. 
 
-\subsection*{(1 c)}
+\subsection*{(1 d)}
 
 
 
