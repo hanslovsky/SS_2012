@@ -110,6 +110,113 @@ $k_i$ are valid kernels as $k'$ can be expressed by a scalar product of a mappin
 \end{figure}
 
 \section*{5.2.1}
+The linear SVM classifies 83\%/86\% of test/training correctly (see figure \ref{fig:linear} ). That leaves room for improvement.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.3\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/5_2_1_training.pdf}
+\caption{training}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.3\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/5_2_1_test.pdf}
+\caption{test}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.3\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/boundary_linear.pdf}
+\caption{test}
+\end{subfigure}
+\caption{Classification rates on test/training as well as decision boundary for a linear SVM}
+\label{fig:linear}
+\end{figure}
+
+\section*{5.2.2}
+
+Increasing $\gamma$ will make the decision boundary approximate the samples of the training dataset very closely (will go up to 100\% classification rate). That agrees with the Gaussian kernel, that will be very narrow ($\delta$ distribution like) for large values of $\gamma$/small values of $\sigma$. However, du to this approximation of the training dataset, the classification rate for the test dataset will drop significantly (as low as 70\%).Therefore $\gamma$ should not be chosen too large. $\gamma=0.01$ resulted in the best classification rate for the test dataset and will be used for investigations on $C$ (see figures \ref{fig:tr_g} - \ref{fig:bnd_g}). $C$ was set to 1 while varying $\gamma$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/training_gamma.pdf}
+\caption{Prediction and labels for training dataset for various $\gamma$}
+\label{fig:tr_g}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/test_gamma.pdf}
+\caption{Prediction and labels for test dataset for various $\gamma$}
+\label{fig:te_g}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/boundary_gamma.pdf}
+\caption{Decision boundary for various $\gamma$}
+\label{fig:bnd_g}
+\end{figure}
+
+\clearpage
+Increasing $C$, which can be interpreted as the cost for wrong decisions, one can force the SVM to try and get at 100\% classification rate on the training set. In contrast to increasing $\gamma$ this does not lead to an approximation of the training dataset as close as for high a $\gamma$ and therefore the classification rate in the test dataset does not drop as dramatically as for (given an appropriate choice for $\gamma$). There is an optimal rate for $C=0.5$ (91\%) and for larger values of $C$ the rate seems to be constant at 87\% (see figures \ref{fig:tr_c} - \ref{fig:bnd_c}). Therefore a grid search for parameter optimzation is a good idea for finding optimal parameters $\gamma$ and $C$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/training_c.pdf}
+\caption{Prediction and labels for training dataset for various $\gamma$}
+\label{fig:tr_c}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/test_c.pdf}
+\caption{Prediction and labels for test dataset for various $\gamma$}
+\label{fig:te_c}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{images/boundary_c.pdf}
+\caption{Decision boundary for various $\gamma$}
+\label{fig:bnd_c}
+\end{figure}
+
+\clearpage
+\section*{5.2.3}
+
+We used a 50x50 grid for $\gamma\in [0.0004, 0.02]$ and $C\in [0.02, 1]$. The resulting cross-validation rates are shown in a surface plot as well as in a 2D score plot (see figure \ref{fig:cv}). 9 compostions of $\gamma$ and $C$ result in the best classification rate of 90\% (see table \ref{tab:cv}).
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.49\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/cv_surf.pdf}
+\caption{surface plot}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.49\textwidth}
+\centering
+\includegraphics[width=\textwidth]{images/cv_scre.pdf}
+\caption{score plot}
+\end{subfigure}
+\caption{Surface/score plots for cross-validation. The 9 compositions with the best scores are indicated by the ellipse in the score plot.}
+\label{fig:cv}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+$\gamma$ & 0.0052  &  0.0052  &  0.0052  &  0.0048  &  0.0048  &  0.0048  &  0.0048  &  0.0044  &  0.0044 \\\hline
+$C$      & 0.8400  &  0.8600  &  0.8800  &  0.9000  &  0.9200  &  0.9400  &  0.9600  &  0.9800  &  1.0000 \\\hline
+\end{tabular}
+\caption{Coordinates for best cross-validation rate}
+\label{tab:cv}
+\end{table}
+
 
 
 \end{document}
