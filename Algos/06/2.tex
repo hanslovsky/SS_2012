@@ -1,0 +1,109 @@
+\documentclass[a4paper]{article}
+
+%\usepackage{texments}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{minted}
+\usepackage{amsmath}
+
+\usepackage[left=2.5cm, right=2.5cm, bottom=2.5cm,footskip=.5cm, top=2.5cm]{geometry}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+\definecolor{bg}{rgb}{0.950,.95,0.95}
+\newminted{pycon}{bgcolor=bg,linenos=false,tabsize=4}
+
+\begin{document}
+
+
+\section*{Aufgabe 2}
+\subsection*{(2 a)}
+Da die Punkte gleichverteilt sind, ist die Verteilung der Punkte mit Radius $r$ gegeben durch das Volumenverhältnis 
+\begin{equation}
+F(r)=\frac{\pi r^2}{\pi}.
+\end{equation}
+Die Dichtefunktion ist daher
+\begin{equation}
+f(r)=\frac{dF(r)}{dr}=2r.
+\end{equation}
+Nun sucht man Intervallgrenzen $r_j$, so dass Punkte im Intervall $[r_j,r_{j+1})$ auf den Index $j$ abgebildet werden. Die Intevallgrenzen sollen so gewählt werden dass im Schnitt in allen Intevallen gleich viele Punkte sind.
+Die Anzahl der Punkte im Bucket $i$ ist gegeben durch
+\begin{equation}
+N_i = \int_{r_i}^{r_{i+1}}2r dr = r_{i+1}^2-r_i^2.\label{eq:N}
+\end{equation}
+Es muss also gelten $N_i=N_{i+1}$. Mit~\eqref{eq:N} folgt daraus für die Intervallgrenzen $r_{i+2}^2=2r_{i+1}^2-r_i^2$. Daraus folgt $r_i=\sqrt{i}\cdot r_1$. Diese Intervallgrenzen werden realisiert indem man die Indexfunktion
+\begin{equation}
+index_{quad}(r)=\lfloor r^2M\rfloor
+\end{equation}
+wählt.
+
+\subsection*{(2b)}
+Die Funktion testUniformity gibt $\tau$ zurück. Für die Arraygrößen $10^2,10^3,10^4,10^5,10^6$ und M=$2,4,8,20,100$ wurde getestet ob $\tau>3$ (nicht gleichverteilt). Die Indexfunktion $\lfloor r^2M\rfloor$ besteht alle $25$ Tests, die Indexfunktion $\lfloor rM\rfloor$ besteht nur $1-2$ von 25 Tests.
+
+
+See figure~\ref{fig:trees} for trees.
+
+\begin{figure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width=6cm]{tree1.png}
+    \caption{first tree, build from string '2+g*3'}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=6cm]{tree2.png}
+    \caption{second tree, build from string '2*4*(3+(4-7)*8)-(1-6)'}
+  \end{subfigure}
+  \caption{Trees build from string expressions by algorithm described in 2a}
+  \label{fig:trees}
+\end{figure}
+
+
+\subsection*{(2c)}
+
+
+\begin{minted}{python}
+dic = {'+': operator.add, '-': operator.sub, "*": operator.mul, 
+       "/": operator.div, "0":0, "1":1, "2":2, "3":3, "4":4, "5":5, "6":6,
+       "7":7, "8":8, "9":9}
+
+
+def calculateFromTree(tree):
+    """ calculate expression from tree
+    """
+    if tree.left.left != None: # left child is operator
+        calculateFromTree(tree.left)
+    if tree.right.left != None: #right child is operator
+        calculateFromTree(tree.right)
+
+    #both children are numbers -> do operation
+    if tree.left.left == None and tree.right.left == None:                    
+        tree.key = dic[tree.key](int(tree.left.key), int(tree.right.key))
+        tree.left = None
+        tree.right = None
+    return tree.key
+
+
+def evalString(string):
+    """ evaluate expression given as string
+    build tree from string, then calculate expression from tree
+    no checking that input string is correct...
+    """
+    tree = buildTree(string)
+    result = calculateFromTree(tree)
+
+    return result
+\end{minted}
+
+
+%\inputminted{python}{1.2.py}
+
+
+
+\end{document}
