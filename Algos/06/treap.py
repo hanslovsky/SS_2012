@@ -3,6 +3,7 @@
 
 import random
 import numpy as np
+import unittest
 
 class Node(object):
     def __init__(self, key, priority = 0):
@@ -88,6 +89,18 @@ def treePrint2(rootnode):
         print "Priority:", rootnode.priority, "\n"
         treePrint2(rootnode.right)
 
+def checkPriorities(rootnode):
+    if rootnode == None:
+        return True
+    if rootnode.priority <= rootnode.left.priority:
+        return checkPriorities(rootnode.left)
+    else:
+        return False
+    if rootnode.priority <= rootnode.left.priority:
+        return checkPriorities(rootnode.right)
+    else:
+        return False
+
 # convert tree to arrays of keys, priorities and corresponding levels
 # sorted by keys (increasing order)
 # neccessarry to see if two trees contain the same elements and ordered the same
@@ -102,10 +115,55 @@ def treeArr(rootnode, keys, priorities, levels, depth = 0):
 
 
 
+
+class treapTest(unittest.TestCase):
+    """ Check post conditions for sorting algorithm
+
+    """
+
+    def setUp(self):
+        self.elements = 10000
+        self.randomArray = [random.randint(0,1000) for r in xrange(self.elements)]
+        self.randomTreap = None
+        self.dynamicTreap = None
+        for el in self.randomArray:
+            self.randomTreap = randomTreapInsert(self.randomTreap, el)
+            self.dynamicTreap = dynamicTreapInsert(self.dynamicTreap, el)
+        self.ranKeys = []
+        self.dynKeys = []
+        self.ranPriorities = []
+        self.dynPriorities = []
+
+        treeArr(self.randomTreap, self.ranKeys, self.ranPriorities, [], depth = 0)
+        treeArr(self.dynamicTreap, self.dynKeys, self.dynPriorities, [], depth = 0)
+
+        self.ranKeys = np.array(self.ranKeys)
+        self.dynKeys = np.array(self.dynKeys)
+        self.ranPriorities = np.array(self.ranPriorities)
+        self.dynPriorities = np.array(self.dynPriorities)
+    
+    def test_equal(self):
+        # check if randomTreap and dynamicTreap are the same
+        self.assertTrue(np.all(self.ranKeys == self.dynKeys))
+        
+    def test_contained(self):
+        # check if the sum of priorities sums up to the number of elements in the original array,
+        # i.e. if all elements were inserted in the treap
+        self.assertEqual(self.elements, np.sum(self.dynPriorities))
+        # check if all elements in the treap have an correspodning element in the original array
+        for el in self.dynKeys:
+            self.assertTrue(np.any(self.randomArray == el))
+        # check if every element appears in the random/dynamic treap as often as in the original
+        # array
+        for i in xrange(len(self.dynKeys)):
+            self.assertEqual(self.dynPriorities[i], np.sum(self.randomArray == self.dynKeys[i]))
+            self.assertEqual(self.dynPriorities[i], np.sum(self.randomArray == self.ranKeys[i]))
+
+    
+
+
+
 if __name__ == "__main__":
-
-
-
     # create trees containing text from 'die-drei-musketiere.txt' (1c)
     s = file('die-drei-musketiere.txt').read()
     for k in ',;.:-"\'!?':
@@ -152,8 +210,16 @@ if __name__ == "__main__":
     print "most frequent word:", dynKeys[highest][0], \
           "\nnumber of apperances:", dynPriorities[highest][0], "\n"
 
+    # print first 7 levels of dynamic Treap
+    for i in xrange(7):
+        indices = dynLevels == i
+        print "level", i, "\n", \
+              dynKeys[indices], "\n", \
+              dynPriorities[indices], "\n"
+              
+
     # print depths of the trees (1d)
-    print "\ndepth of random Treap:", ranDepth, \
+    print "depth of random Treap:", ranDepth, \
           "\ndepth of dynamic Treap:", dynDepth, \
           "\ndepth of balanced Treap:", np.log2(0.5*(treeSize(randomTreap)+1)), "\n"
 
@@ -162,3 +228,6 @@ if __name__ == "__main__":
     print "average acces times", \
           "\nrandom Treap:", 1.0*np.sum(dynPriorities*ranLevels)/weightSum, \
           "\ndynamic Treap:", 1.0*np.sum(dynPriorities*dynLevels)/weightSum
+
+    # unittest
+    unittest.main()
