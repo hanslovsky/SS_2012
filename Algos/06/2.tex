@@ -73,61 +73,18 @@ wählt.
 Die Funktion testUniformity gibt $\tau$ zurück. Für die Arraygrößen $10^2,10^3,10^4,10^5,10^6$ und M=$2,4,8,20,100$ wurde getestet ob $\tau>3$ (nicht gleichverteilt). Die Indexfunktion $\lfloor r^2M\rfloor$ besteht alle $25$ Tests, die Indexfunktion $\lfloor rM\rfloor$ besteht nur $1-2$ von 25 Tests.
 
 
-See figure~\ref{fig:trees} for trees.
-
-\begin{figure}
-  \begin{subfigure}[b]{0.5\textwidth}
-    \centering
-    \includegraphics[width=6cm]{tree1.png}
-    \caption{first tree, build from string '2+g*3'}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.5\textwidth}
-    \includegraphics[width=6cm]{tree2.png}
-    \caption{second tree, build from string '2*4*(3+(4-7)*8)-(1-6)'}
-  \end{subfigure}
-  \caption{Trees build from string expressions by algorithm described in 2a}
-  \label{fig:trees}
-\end{figure}
 
 
 \subsection*{(2c)}
 
+Die Laufzeit von bucketSort scheint linear zu sein, siehe Abbildung~\ref{fig:runtime}. Die Laufzeit unter Verwendung von $\lfloor rM\rfloor$ ist geringer als die Laufzeit unter Verwendung von $\lfloor r^2M\rfloor$. Dies Widerspricht der Erwartung. Die Vorteile durch Verwendung von $\lfloor r^2M\rfloor$ (gleichmäßig gefüllte Buckets) könnten geringer sein als der Mehraufwand (quadrieren, $r^2$)?
 
-\begin{minted}{python}
-dic = {'+': operator.add, '-': operator.sub, "*": operator.mul, 
-       "/": operator.div, "0":0, "1":1, "2":2, "3":3, "4":4, "5":5, "6":6,
-       "7":7, "8":8, "9":9}
-
-
-def calculateFromTree(tree):
-    """ calculate expression from tree
-    """
-    if tree.left.left != None: # left child is operator
-        calculateFromTree(tree.left)
-    if tree.right.left != None: #right child is operator
-        calculateFromTree(tree.right)
-
-    #both children are numbers -> do operation
-    if tree.left.left == None and tree.right.left == None:                    
-        tree.key = dic[tree.key](int(tree.left.key), int(tree.right.key))
-        tree.left = None
-        tree.right = None
-    return tree.key
-
-
-def evalString(string):
-    """ evaluate expression given as string
-    build tree from string, then calculate expression from tree
-    no checking that input string is correct...
-    """
-    tree = buildTree(string)
-    result = calculateFromTree(tree)
-
-    return result
-\end{minted}
-
-
-%\inputminted{python}{1.2.py}
+\begin{figure}
+  \centering
+  \includegraphics[width=10cm]{runtime.png}
+  \caption{Laufzeit von BucketSort unter Verwendung der zwei bucketMaps.}
+  \label{fig:runtime}
+\end{figure}
 
 
 
