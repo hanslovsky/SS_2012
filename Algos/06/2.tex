@@ -32,10 +32,11 @@ treap.py
 \subsection*{(1b)}
 treap.py
 \subsection*{(1c)}
-Implementierung in treap.py (es wird auch geprüft, dass beide Bäume die gleichen Elemente in gleicher Sortierung enthalten). Im standard ouput werden die erstenen 7 Ebenen ausgegeben.
+Implementierung in treap.py (es wird auch geprüft, dass beide Bäume die gleichen Elemente in gleicher Sortierung enthalten). Im standard ouput werden die ersten 7 Ebenen ausgegeben.
 \subsection*{(1d)}
 Ein perfekt ausbalancierter Baum hätte die Tiefe 13 (vgl. standard output). Die Anzahl der Nodes wäre gleich wie im random bzw. dynamic Treap. Daraus lässt sich über $d \le \log_2(N) < d+1$ bestimmen, wobei $N$ die Zahl der Nodes und $d$ die Tiefe ist. Die Anzahl der Nodes ist 13658 (vgl. standard output). Die Tiefe des random Treaps schwankt, da die Prioritäten random vergeben werden. Die Tiefe ist immer kleiner als die des dynamic Treaps, jedoch noch deutlich vom balanced Tree entfernt. Die Tiefe des dynamic Treaps ist konstant bei 38. (vgl. Tabelle \ref{tab:depth})
-\begin{table}
+\begin{table}[H]
+\centering
 \begin{tabular}{|c|c|c|}
 \hline
 balanced & random & dynamic \\\hline
