@@ -86,5 +86,10 @@ Var(\frac{1}{B}\sum_{i=1}^BX_i) \overset{\ref{eq:cov}}{=}& Cov(\frac{1}{B}\sum_{
   =&\rho\sigma^2+\frac{(1-\rho)\sigma^2}{B}
 \end{align} 
 
+\section*{6.3.2}
+The probability $p_{oob}$ for an observation to be out of bag is given by the ratio of the number $N_{all}$ of all possible bags and the number $N_{-1}$ of all possible bags that do not contain given observation. Let N be the number of all observations and k the number of elements contained in a bag. Then the total number of possible bags is given by the number of possible configurations $\frac{N!}{(N-k)!}$ divided by the number of corresponding permutations $k!$ (i.e. choosing observations 1, 2 and 4 is the same as choosing 1, 4 and 2) or the binomial coefficient.
+\begin{align}
+N_{all} = \frac{N!}{k!(N-k)!}
+\end{algin}
 
 \end{document}
