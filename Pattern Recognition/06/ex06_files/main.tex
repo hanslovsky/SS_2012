@@ -1,0 +1,90 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,right=1.5cm,top=2.0cm,bottom=2.8cm]{geometry}
+
+\usepackage[ngerman,american]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{sidecap}
+% \usepackage[FIGTOPCAP]{subfigure}
+\usepackage{float}
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+%\usepackage{empheq}
+\usepackage[footnotesize,bf]{caption}
+\usepackage{subcaption}
+%\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}
+\theoremstyle{plain}
+\newtheorem{theo}[defi]{Theorem}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+\title{Exercise 6}
+\author{Philipp Hanslovsky, Robert Walecki}
+
+\begin{document}
+
+\lstset{language=Matlab,
+   keywords={break,case,catch,continue,else,elseif,end,for,function,
+      global,if,otherwise,persistent,return,switch,try,while},
+   basicstyle=\ttfamily,
+   keywordstyle=\color{blue},
+   commentstyle=\color{green!40!black},
+   stringstyle=\color{red},
+   numbers=left,
+   numberstyle=\tiny\color{white!50!black},
+   stepnumber=1,
+   numbersep=10pt,
+   backgroundcolor=\color{white},
+   tabsize=4,
+   showspaces=false,
+   showstringspaces=false,
+   frame=single}
+
+
+\maketitle
+
+\section*{6.3.1}
+The covariance is a symmetric bilinear form. Therefore the following rules apply:
+\begin{align}
+Cov(X,Y) =& Cov(Y,X) \label{eq:bf_1} \\
+Cov(aX+b,Y) =& a*Cov(X,Y) \label{eq:bf_2} \\
+Cov(X+Y,Z) =& Cov(X,Z)+Cov(Y,Z) \label{eq:bf_3}
+\end{align}
+\ref{eq:bf_3} can be generalized to:
+\begin{align}
+Cov(\sum_iX_i, Y) =& \sum_iCov(X_i,Y) \label{eq:bf_4}
+\end{align}
+Furthermore the covariance is a generalization of the variance:
+\begin{align}
+Var(X) =& Cov(X,X) \label{eq:cov}
+\end{align}
+The relation between covariance and correlation is given by:
+\begin{align}
+\rho_{ij} =& \frac{cov(X_i,X_j}{\sigma_i\sigma_j} \overset{i.d.}{=} \frac{cov(X_i,X_j)}{\sigma^2} \label{eq:cor}
+\end{align}
+With this preconditions we get:
+\begin{align}
+Var(\frac{1}{B}\sum_{i=1}^BX_i) \overset{\ref{eq:cov}}{=}& Cov(\frac{1}{B}\sum_{i=1}^BX_i,\frac{1}{B}\sum_{i=1}^BX_i) \\
+  \overset{\ref{eq:bf_2}, \ref{eq:bf_3}}{=}&\frac{1}{B^2}\sum_{i,j=1}^B(X_i,X_j) \\
+  \overset{\ref{eq:cov}}{=}&\frac{1}{B^2}sum_{i=1}^BVar(X_i)+\frac{2}{B^2}\sum_{i=1}^{B-1}\sum_{j=i+1}^Bcov(X_i,X_j) \\
+  \overset{\ref{eq:cor}, i.d.}{=}&\frac{1}{B^2}B\sigma^2+\frac{2\rho\sigma^2}{B^2}\sum_{i=1}^{B-1}\sum_{j=i+1}^B1 \\
+  =&\frac{\sigma^2}{B}+\frac{2\rho\sigma^2}{B^2}\sum_{i=1}^{B-1}B-i \\
+  =&\frac{\sigma^2}{B}+\frac{2\rho\sigma^2}{B^2}\left(B\left(B-1\right) - \frac{B\left(B-1\right)}{2}\right) \\
+  =&\frac{\sigma^2}{B}+\frac{\rho\sigma^2}{B}(B-1) \\
+  =&\rho\sigma^2+\frac{(1-\rho)\sigma^2}{B}
+\end{align} 
+
+
+\end{document}
