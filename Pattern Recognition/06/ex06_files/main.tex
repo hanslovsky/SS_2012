@@ -92,7 +92,7 @@ The probability $p_{oob}$ for an observation to be out of bag is given by the ra
 N_{all} &= \frac{N!}{k!(N-k)!} \\
 &= \binom{N}{k}
 \end{align}
-The number of possible bags not containing a certain observation can be obtained in a similar fashion. Let $x_i$ be an observation fixed to be not in a bag. Then the number of possible bags for that configuration is given by the number of possible configurations for the remaining N-1 samples $\frac{(N-1)!}{(N-k-1)!}$ divided by the number of corresponding permutations $k!$.
+The number of possible bags not containing a certain observation can be obtained in a similar fashion. Let $x_i$ be an observation fixed to be not in a bag. Then the number of possible bags for that configuration is given by the number of possible configurations for the remaining $N-1$ samples $\frac{(N-1)!}{(N-k-1)!}$ divided by the number of corresponding permutations $k!$.
 \begin{align}
 N_{-1} &= \frac{(N-1)!}{k!(N-1-k)!} \\
 &= \binom{N-1}{k}
@@ -103,5 +103,27 @@ p_{oob} &= \frac{N_{-1}}{N_{all}} \\
 &=\frac{(N-1)!}{k!(N-1-k)!}\frac{k!(N-k)!}{N!} \\
 p_{oob} &= \frac{N-k}{N} = 1 - \frac{k}{N}
 \end{align}
+That probability holds for a single bootstrap sample. Given M trees based on M bootstrap samples, the probability for an observation to be out-of-bag in at least one tree can be calculated with the help of the probability that the observation is contained in every bootstrap sample. $(1-p_{oob})^M$ is the probability for an observation to be contained in all bootstrap samples.
+\begin{align}
+p &= 1-(1-p_{oob})^M \\
+p &=1-(\frac{k}{N})^M \label{eq:oob}
+\end{align}
 
+\clearpage
+\section*{6.3.3}
+
+The oob error decreases with an increasing number of trees M. The test error is decreasing as well, however it's fluctuating, so it might be constant for $M > M_{min}$. Therefore choosing a good k might save a lot of computation time.
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.49\textwidth}
+\includegraphics[width=\textwidth]{oob.pdf}
+\caption{oob error}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.49\textwidth}
+\includegraphics[width=\textwidth]{test_error.pdf}
+\caption{test error}
+\end{subfigure}
+\caption{oob and test error as functions of the number of trees}
+\end{figure}
 \end{document}
