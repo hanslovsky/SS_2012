@@ -1,0 +1,77 @@
+\documentclass[a4paper]{article}
+
+%\usepackage{texments}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{minted}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\usepackage[left=2.5cm, right=2.5cm, bottom=2.5cm,footskip=.5cm, top=2.5cm]{geometry}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+\definecolor{bg}{rgb}{0.950,.95,0.95}
+\newminted{pycon}{bgcolor=bg,linenos=false,tabsize=4}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 6.1                             %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Aufgabe1}
+Sei $K_n$ eine Menge von Schlüsseln der Länge $n$ mit gleichem Hashwert $C_n$, also $hhash(v)=C_n$, für alle $v\in K_n$ mit festem $C_n\in\mathbb{N}$. Für ein $v\in K_n$ sei $v_i=ord(v[i])$ mit $i\in\{0,1,\dots,n-1\}$. Sei nun $x,y\in K_2$, also zwei beliebige Schlüssel der Länge $2$ mit gleichem Hashwert $C_2$. Sei $z=xy$ ein Schlüssel der Länge $4$ zusammengesetzt aus $x$ und $y$. Für ein $v\in K_2$ gilt:
+\begin{equation}
+hhash(v)=23v_0 + v_1.\label{eq:hash1}
+\end{equation} 
+Es folgt:
+\begin{align}
+hhash(z) & = 23(23hhash(x)+y_0) + y_1\\
+& = 23^2hhash(x)+23y_0+y_1\\
+& = 23^2hhash(x)+hhash(y)\\
+& = 23^2C_2+C_2.
+\end{align}
+Das heißt jede Kombination von zwei Schlüsseln aus $K_2$ ergibt einen Schlüssel der Länge $4$, die alle den gleichen Hashwert haben. Um $16$ Schlüssel der Länge $4$ mit gleichem Hashwert zu finden, muss man also lediglich $4$ Schlüssel der Länge $2$ finden mit gleichem Hashwert ($4\cdot4=16$ Kombinationen).
+
+Für zwei beliege Elemente $x,y\in K_2$ gilt wegen~\eqref{eq:hash1}
+\begin{equation}
+y_1=23(x_0-y_0)+x_1.\label{eq:hash2}
+\end{equation}
+Es sollen keine 'komischen' Zeichen vorkommen, also alle Unicodewerte sollen in $\{32,33,\dots,127\}$ liegen. Es wird nun ein Schlüssel ($a$) der Länge zwei fest vorgegeben und drei weitere Schlüssel ($b,c,d$) der Länge $2$ gesucht mit gleichem Hashwert.  Das intuitivste ist $b_0=a_0-1$, $c_0=a_0-2$ und $d_0=a_0-3$ zu setzen und dann mit~\eqref{eq:hash2} die Werte $b_1$, $c_1$ und $d_1$ berechnen. Damit alle Unicodewerte in $\{32,33,\dots,127\}$ liegen, kann man zum Beispiel $a_0=35$, $a_1=32$ setzen. Tabelle \ref{tab:unicode} zeigt diese $4$ Schlüssel und Tabelle \ref{tab:string} zeigt die zugehörigen Zeichen. Die $16$ Schlüssel der Länge $4$ sind im File \emph{collisions.txt}.
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+$a_0$ & $a_1$ & $b_0$ & $b_1$ & $c_0$ & $c_1$ & $d_0$ & $d_1$ \\\hline
+$35$ & $32$ & $34$ & $55$ & $33$ & $78$ & $32$ & $101$
+\end{tabular}
+\caption{UnicodeWerte der Schlüssel}
+\label{tab:unicode}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+$a$ & $b$ & $c$ & $d$ \\\hline
+'\# '& '"7' & '!N' & ' e'
+\end{tabular}
+\caption{UnicodeWerte der Schlüssel}
+\label{tab:string}
+\end{table}
+
+
+
+
+\end{document}
