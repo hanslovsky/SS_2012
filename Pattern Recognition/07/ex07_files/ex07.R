@@ -1,6 +1,7 @@
 #!/usr/bin/Rscript
 
 source("regression.R")
+source("errorFunction.R")
 
 # 7.1.2
 pizzaData = read.csv(file="cities.csv",head=TRUE,sep=",")
@@ -14,7 +15,7 @@ minPopulation = floor(min(X))
 X
 y
 # X = population
-pdf(file="test.pdf")
+pdf(file="7_1_2.pdf")
 parameters = regression(X, y)
 parameters
 
@@ -25,3 +26,21 @@ points(X[,1],y, pch=6,cex=0.7,col='darkred')
 dev.off()
 
 
+# 7.1.3
+pdf(file="7_1_3.pdf")
+gridSections = 101
+mid = floor(gridSections/2)
+gridX = seq(-5,5,length=gridSections)
+gridC = seq(0,10,length=gridSections)
+grid = matrix(nrow=gridSections, ncol=gridSections)
+for(i in 1:gridSections) {
+  for(j in 1:gridSections) {
+    grid[i,j] = errorFunction(X, y, rbind(gridX[i], gridC[j]))
+  }
+}
+persp(gridX, gridC, grid, phi=30, theta=30, xlab='slope', ylab='offset',zlab='error J', main='3D surface plot of the error J', r = 2, ticktype='detailed', col='red')
+plot(gridX, grid[,mid], xlab='slope', ylab='error J', pch=6,cex=0.7,col='darkred', main='error J for a fixed value of the offset')
+plot(gridC, grid[mid,], xlab='offset', ylab='error J', pch=6,cex=0.7,col='darkred', main='error J for a fixed value of the slope')
+filled.contour(gridX, gridC, grid, xlab='slope', ylab='offset', main='Contour plot of the error J')
+points(parameters[1], parameters[2], pch=1,cex=0.7,col='black')
+dev.off()

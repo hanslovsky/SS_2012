@@ -4,6 +4,6 @@ errorFunction=function(X, y, parameters) {
   # is a (p+1)x1 vector containing the p+1 parameters of regression.
 
   samples = dim(X)[1]
-  J = 1/(2*samples)*sum(X%*%parameters-y)
-  return J
+  J = 1/(2*samples)*sum((X%*%parameters-y)^2)
+  return(J) 
 }
