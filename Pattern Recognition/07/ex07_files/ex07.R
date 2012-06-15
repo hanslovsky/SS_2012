@@ -32,8 +32,8 @@ dev.off()
 pdf(file="7_1_3.pdf")
 gridSections = 101
 mid = floor(gridSections/2)
-gridX = seq(-5,5,length=gridSections)
-gridC = seq(-5,5,length=gridSections)
+gridX = seq(-10,10,length=gridSections)
+gridC = seq(-40,40,length=gridSections)
 grid = matrix(nrow=gridSections, ncol=gridSections)
 for(i in 1:gridSections) {
   for(j in 1:gridSections) {
