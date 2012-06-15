@@ -30,8 +30,8 @@ dev.off()
 pdf(file="7_1_3.pdf")
 gridSections = 101
 mid = floor(gridSections/2)
-gridX = seq(-5,5,length=gridSections)
-gridC = seq(0,10,length=gridSections)
+gridX = seq(1.1,1.2,length=gridSections)
+gridC = seq(-4,-3,length=gridSections)
 grid = matrix(nrow=gridSections, ncol=gridSections)
 for(i in 1:gridSections) {
   for(j in 1:gridSections) {
@@ -44,3 +44,6 @@ plot(gridC, grid[mid,], xlab='offset', ylab='error J', pch=6,cex=0.7,col='darkre
 filled.contour(gridX, gridC, grid, xlab='slope', ylab='offset', main='Contour plot of the error J')
 points(parameters[1], parameters[2], pch=1,cex=0.7,col='black')
 dev.off()
+
+errorFunction(X, y, parameters)
+min(grid)
