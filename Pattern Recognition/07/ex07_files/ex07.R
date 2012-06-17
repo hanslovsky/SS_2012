@@ -110,3 +110,13 @@ mar.orig <- par("mar")
 contour(gridX, gridY, grid, levels=0.5, drawlabels = TRUE, axes = FALSE, frame.plot = FFALSE, add = TRUE)
 
 dev.off()
+
+
+# 7.2.4
+prediction = predict(regress, data.frame(score1, score2), se.fit=TRUE)
+
+
+
+pdf(file="7_2_4.pdf")
+
+dev.off()

@@ -116,7 +116,35 @@ Fig \ref{fig:surf} contains a 3D surface plot and a contour plot. To show that t
 = & \sigma\frac{1+e^{-a}-1}{1+e^{-a}}& = \sigma(1-\sigma)
 \end{align}
 
+\section*{7.2.2}
+The space spanned by the regressors is two-dimensional and the decision boundary is a hyperplane in that space (see fig \ref{fig:lowdim}). Therefore it is a straight line. It's closed form is given by:
+\begin{align}
+\theta_0+\theta_1score_1+\theta_2score_2 &= 0 \\
+score_2 &= -\frac{\theta_0+\theta_1score_1}{\theta_2}
+\end{align}
 
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.45\textwidth}
+\includegraphics[page=1, width=\textwidth]{7_2_2.pdf}
+\caption{scatterplot of the data with decision boundary}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+\includegraphics[page=2, width=\textwidth]{7_2_2.pdf}
+\caption{class posterior probabilites with decision boundary}
+\end{subfigure}
+\caption{scatterplot and posterior probabilities}
+\label{fig:lowdim}
+\end{figure}
 
+\section*{7.2.3}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{7_2_3.pdf}
+\caption{decision boundary for projection into higher dimension}
+\label{fig:highdim}
+\end{figure}
 
+The decision boundary is quadric - hyperbolic, to be more specific - now, whereas it was linear before. In higher dimensional space the decision boundary still is linear (we went from two dimensions to five dimensions), however it is backprojected into two dimensions, where it is represented by a quadric.
 \end{document}
