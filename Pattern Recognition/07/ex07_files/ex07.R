@@ -51,3 +51,38 @@ dev.off()
 
 errorFunction(X, y, parameters)
 min(grid)
+
+# 7.2.2
+students = read.csv("student-scores-training.csv")
+score1 = students$score1
+score2 = students$score2
+passed = students$exam.passed
+frame = data.frame(score1, score2, passed)
+regress = glm(passed~score1+score2, binomial)
+coefficients = regress$coefficients
+intersect = coefficients[1]
+theta1 = coefficients[2]
+theta2 = coefficients[3]
+pdf(file="7_2_2.pdf")
+plot(0:100, -(theta1*(0:100)+intersect)/theta2, xlab='score1', ylab='score2',type ='l', lty=4, main='pass/fail in dependance of scores')
+points(score1[passed == 1], score2[passed == 1], pch=6, col='darkred')
+points(score1[passed == 0], score2[passed == 0], pch=6, col=259)
+gridSections=101
+gridX = seq(0,100,length=gridSections)
+gridY = seq(0,100,length=gridSections)
+grid  = matrix(nrow=gridSections, ncol=gridSections)
+for(i in 1:gridSections) {
+  for(j in 1:gridSections) {
+    denominator = 1+exp(-(coefficients%*%c(1,i,j)))
+    grid[i,j] = 1/denominator
+  }
+}
+filled.contour(gridX, gridY, grid, xlab='score1', ylab='score2', main='Contour plot of the class posterior probabilities')
+boundary = which(abs(grid-0.5) < 0.00665, arr.in=TRUE)
+# add contour to filled contour:
+mar.orig <- par("mar")
+ w <- (3 + mar.orig[2]) * par("csi") * 2.15
+ layout(matrix(c(2, 1), nc = 2), widths = c(1, lcm(w)))
+contour(gridX, gridY, grid, levels=0.5, drawlabels = FALSE, axes = FALSE, frame.plot = FFALSE, add = TRUE)
+
+dev.off()
