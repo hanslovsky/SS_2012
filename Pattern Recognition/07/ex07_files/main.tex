@@ -1,0 +1,122 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,right=1.5cm,top=2.0cm,bottom=2.8cm]{geometry}
+
+\usepackage[ngerman,american]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{sidecap}
+% \usepackage[FIGTOPCAP]{subfigure}
+\usepackage{float}
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+%\usepackage{empheq}
+\usepackage[footnotesize,bf]{caption}
+\usepackage{subcaption}
+%\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}
+\theoremstyle{plain}
+\newtheorem{theo}[defi]{Theorem}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+\title{Exercise 7}
+\author{Philipp Hanslovsky, Robert Walecki}
+
+\begin{document}
+
+
+\lstloadlanguages{R} 
+\lstset{language=R,
+   %keywords={break,case,catch,continue,else,elseif,end,for,function,
+   %   global,if,otherwise,persistent,return,switch,try,while},
+   basicstyle=\ttfamily,
+   keywordstyle=\color{blue},
+   commentstyle=\color{green!40!black},
+   stringstyle=\color{red},
+   numbers=left,
+   numberstyle=\tiny\color{white!50!black},
+   stepnumber=1,
+   numbersep=10pt,
+   backgroundcolor=\color{white},
+   tabsize=4,
+   showspaces=false,
+   showstringspaces=false,
+   frame=single}
+
+
+\maketitle
+
+\section*{7.1.1}
+\lstinputlisting{regression.R}
+
+\section*{7.1.2}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{7_1_2.pdf}
+\caption{Scatterplot of pizza data (red triangles) and linear model (black line).}
+\label{fig:pizza}
+\end{figure}
+
+The parameters are:
+\begin{align}
+\theta_1 =& \;\;\;\:\,1.193034 \approx \;\;\:1.19 \label{eq:slope} \\
+\theta_2 =& -3.895781 \approx -3.90 \label{eq:offset} \\
+J =& \;\;\;\:\,4.476971 \label{eq:J}
+\end{align}
+$\theta_1$ can be interpreted as the slope, $\theta_2$ is the intercept. J denotes the error (see error function in section 7.1.3).
+
+\section*{7.1.3}
+Fig \ref{fig:surf} contains a 3D surface plot and a contour plot. To show that the errors for both slope and offset are parabolic, they are plotted for a fixed value of the respective other (eror of the slope for a fixed value of the offset and vice versa) in fig \ref{fig:fixed}. The minimal error on the grid is $4.478453$. That is larger than what was obtained in \ref{eq:J}. That is caused by the smallest grid interval to be $0.2$ in direction of the slope and $0.8$ in direction of the offset, which is rather coarse compared to the accuracy of the result in \ref{eq:slope} and \ref{eq:offset}. As the error grid is a 2D overlay of two 1D parabolas, there is exactly one minimum.
+\lstinputlisting{errorFunction.R}
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.45\textwidth}
+\includegraphics[page=1, width=\textwidth]{7_1_3.pdf}
+\caption{3D surface plot of the error grid}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+\includegraphics[page=4, width=\textwidth]{7_1_3.pdf}
+\caption{contour plot of the error grid}
+\end{subfigure}
+\caption{3D surface plot and contour plot of the error grid. The error of the parameters chosen in section 7.1.1 is represented by the black circle.}
+\label{fig:surf}
+\end{figure}
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.45\textwidth}
+\includegraphics[page=2, width=\textwidth]{7_1_3.pdf}
+\caption{error ``produced'' by the slope}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+\includegraphics[page=3, width=\textwidth]{7_1_3.pdf}
+\caption{error ``produced'' by the offset}
+\end{subfigure}
+\caption{Error function for fixing one of the parameters.}
+\label{fig:fixed}
+\end{figure}
+
+\section*{7.2.1}
+
+\begin{align}
+\sigma(\theta^Tx) = &\frac{1}{1+e^{-\theta^Tx}}& \\
+\frac{d\sigma(a)}{da} = &\frac{1}{(1+e^{-a})^2}(e^{-a})& = \sigma\frac{e^{-a}}{1+e^{-a}} \\
+= & \sigma\frac{1+e^{-a}-1}{1+e^{-a}}& = \sigma(1-\sigma)
+\end{align}
+
+
+
+
+\end{document}
