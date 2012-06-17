@@ -83,6 +83,30 @@ boundary = which(abs(grid-0.5) < 0.00665, arr.in=TRUE)
 mar.orig <- par("mar")
  w <- (3 + mar.orig[2]) * par("csi") * 2.15
  layout(matrix(c(2, 1), nc = 2), widths = c(1, lcm(w)))
-contour(gridX, gridY, grid, levels=0.5, drawlabels = FALSE, axes = FALSE, frame.plot = FFALSE, add = TRUE)
+contour(gridX, gridY, grid, levels=0.5, drawlabels = TRUE, axes = FALSE, frame.plot = FFALSE, add = TRUE)
+
+dev.off()
+
+# 7.2.3
+newdim1 = score1^2
+newdim2 = score1*score2
+newdim3 = score2^2
+regress = glm(passed~score1+score2+newdim1+newdim2+newdim3, binomial)
+coefficients = regress$coefficients
+coefficients
+pdf(file="7_2_3.pdf")
+for(i in 1:gridSections) {
+  for(j in 1:gridSections) {
+    denominator = 1+exp(-(coefficients%*%c(1,i,j,i^2,i*j,j^2)))
+    grid[i,j] = 1/denominator
+  }
+}
+filled.contour(gridX, gridY, grid, xlab='score1', ylab='score2', main='Contour plot of the class posterior probabilities')
+boundary = which(abs(grid-0.5) < 0.00665, arr.in=TRUE)
+# add contour to filled contour:
+mar.orig <- par("mar")
+ w <- (3 + mar.orig[2]) * par("csi") * 2.15
+ layout(matrix(c(2, 1), nc = 2), widths = c(1, lcm(w)))
+contour(gridX, gridY, grid, levels=0.5, drawlabels = TRUE, axes = FALSE, frame.plot = FFALSE, add = TRUE)
 
 dev.off()
