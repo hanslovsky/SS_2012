@@ -1,4 +1,6 @@
 function covariance = gp_cov(x1, x2, theta0, theta1, theta2, theta3, beta)
+% x1 is a dxn1 matrix containing n2 observations of d dimensions
+% x2 is a dxn2 matrix containing n2 observations of d dimension
 
 nugget = beta;
 dims = size(x1, 1);
