@@ -97,6 +97,7 @@ sigma21 = gp_cov(x, query, theta0, theta1, theta2, theta3, beta);
 sigma11 = gp_cov(query, query, theta0, theta1, theta2, theta3, beta);
 response = y*(sigma22\sigma21);
 uncertainty = diag(sigma11 - sigma21'*(sigma22\sigma21));
+uncertainty(uncertainty < 0) = 0;
 uncertainty = sqrt(uncertainty');
 
 figure
@@ -114,9 +115,31 @@ plot(x, y, '<', 'MarkerEdgeColor', 'none', ...
 hold off
 
 
+% 8.2.1
 
 
+[theta0, theta1, theta2, theta3, beta] = deal(1, 20, 0, 0, 25);
+sigma22 = gp_cov(x, x, theta0, theta1, theta2, theta3, beta);
+sigma21 = gp_cov(x, query, theta0, theta1, theta2, theta3, beta);
+sigma11 = gp_cov(query, query, theta0, theta1, theta2, theta3, beta);
+response = y*(sigma22\sigma21);
+uncertainty = diag(sigma11 - sigma21'*(inv(sigma22)*sigma21))';
+uncertainty(uncertainty < 0) = 0;
+uncertainty = sqrt(uncertainty);
 
+figure
+hold
+patch([query fliplr(query)], ...
+      [response+uncertainty,fliplr(response-uncertainty)], ...
+      uncertaintyFaceColor, 'EdgeColor', 'none')
+alpha(0.2)
+plot(query, response, 'k', 'LineWidth', 1)
+plot(query, response + uncertainty, 'Color', uncertaintyFaceColor - 0.1, 'Linewidth', 1)
+plot(query, response - uncertainty, 'Color', uncertaintyFaceColor - 0.1, 'Linewidth', 1)
+plot(x, y, '<', 'MarkerEdgeColor', 'none', ...
+                'MarkerFaceColor', xFaceColor, ...
+                'MarkerSize', 7)
+hold off
 
 
 
