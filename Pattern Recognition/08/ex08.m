@@ -1,7 +1,7 @@
 close all; clc; clear;
 
 
-% 8.1.1: gp_cov.m
+%8.1.1: gp_cov.m
 
 %8.1.2
 
