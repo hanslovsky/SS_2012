@@ -75,7 +75,7 @@ p(a,b|\bar{c}) &= \frac{p(a,b,\bar{c})}{p(\bar{c})} =\frac{0.048}{0.48} = \frac{
 \label{fig:graph}
 \end{figure}
 
-\begin{table}[H]
+\begin{table}
 \centering
 \caption{Probability tables for the graph shown in fig \ref{fig:graph}}
 \begin{tabular}{|c|c|l|}
@@ -108,8 +108,24 @@ Instead of seven parameters as before, only five parameters are needed now:
 p(c), p(a|c), p(a|\bar{c}), p(b,c), p(b|\bar{c})
 \end{align}
 
+\section*{10.2}
 
+% Mach dei Zeug da rein, Robbat!
 
+\section*{10.3.1}
+The best fitting graph is graph \#4. The flaws of the others are:
+In graph \#1 the ``Terminator 2'' node should be connected with the ``date plan'' node as we make our decision for the date plan based on the Terminator 2 rumor. The ``likes robot movies'' node should influence the date plan but only the girl's decision. Graph \#2 is the same as \#1 except the ``Terminator 3'' node's connection with the ``decision'' node is complete nonsense. The availability in local cinemas affects the date plan, not the decision. Graph \#3 is the same as \#1 except connecting the ``Terminator 3'' node with the ``Terminator 2'' node does not make any sense at all.
 
+\section*{10.3.2}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+observation & None & T2 = False & T2 = False, T3 = False \\ \hline
+$p(decision = yes)$ & 0.51 & 0.45 & 0.45 \\ \hline
+\end{tabular}
+\end{table}
+
+With the knowledge that the first guy proposed a walk in the park, the probability of her enjoying robot movies went down to 0.145. The probability that Terminator 3 is not running went up to 0.487. Knowing that she rejected the offer, the probability for her liking robot movies went down to 0.150.
 
 \end{document}
