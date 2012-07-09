@@ -1,0 +1,115 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,right=1.5cm,top=2.0cm,bottom=2.8cm]{geometry}
+
+\usepackage[ngerman,american]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{sidecap}
+% \usepackage[FIGTOPCAP]{subfigure}
+\usepackage{float}
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+%\usepackage{empheq}
+\usepackage[footnotesize,bf]{caption}
+\usepackage{subcaption}
+%\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}
+\theoremstyle{plain}
+\newtheorem{theo}[defi]{Theorem}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+\title{Exercise 10}
+\author{Philipp Hanslovsky, Robert Walecki}
+
+\begin{document}
+
+
+\lstloadlanguages{R} 
+\lstset{language=R,
+   %keywords={break,case,catch,continue,else,elseif,end,for,function,
+   %   global,if,otherwise,persistent,return,switch,try,while},
+   basicstyle=\ttfamily,
+   keywordstyle=\color{blue},
+   commentstyle=\color{green!40!black},
+   stringstyle=\color{red},
+   numbers=left,
+   numberstyle=\tiny\color{white!50!black},
+   stepnumber=1,
+   numbersep=10pt,
+   backgroundcolor=\color{white},
+   tabsize=4,
+   showspaces=false,
+   showstringspaces=false,
+   frame=single}
+
+
+\maketitle
+
+\section*{10.1}
+\begin{align}
+p(a, b) &= 0.048 + 0.096 = 0.144 \\
+p(a)p(b) &= (0.192 + 0.064 + 0.048 + 0.096)(0.048 + 0.216 + 0.048 + 0.096) \\
+&= 0.1632 \ne p(a, b) \\
+p(a|c)p(b|c) &= \frac{p(a,c)p(b,c)}{p(c)^2} = \frac{0.16\cdot0.312}{0.52^2} = \frac{0.04992}{0.52^2} \\
+p(a,b|c) &= \frac{p(a,b,c)}{p(c)} =\frac{0.096}{0.52} = \frac{0.04992}{0.52^2} = p(a|c)p(b|c) \\
+p(a|\bar{c})p(b|\bar{c}) &= \frac{p(a,\bar{c})p(b,\bar{c})}{p(\bar{c})^2} = \frac{0.048^2}{0.48^2}(1+4)(1+1) = \frac{1}{100}\cdot10 = \frac{1}{10} \\
+p(a,b|\bar{c}) &= \frac{p(a,b,\bar{c})}{p(\bar{c})} =\frac{0.048}{0.48} = \frac{1}{10} = p(a|\bar{c})p(b|\bar{c})
+\end{align}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{out.pdf}
+\caption{Graph for the given probability table}
+\label{fig:graph}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Probability tables for the graph shown in fig \ref{fig:graph}}
+\begin{tabular}{|c|c|l|}
+\hline
+a & c & $p(a|c)$ \\ \hline
+0 & 0 & 0.5 \\ \hline
+0 & 1 & 0.69 \\ \hline
+1 & 0 & 0.5 \\ \hline
+1 & 1 & 0.31 \\ \hline
+\end{tabular}
+~
+\begin{tabular}{|c|c|l|}
+\hline
+a & c & $p(b|c)$ \\ \hline
+0 & 0 & 0.8 \\ \hline
+0 & 1 & 0.4 \\ \hline
+1 & 0 & 0.2 \\ \hline
+1 & 1 & 0.6 \\ \hline
+\end{tabular}
+~
+\begin{tabular}{|c|l|}
+\hline
+c & $p(c)$ \\ \hline
+0 & 0.52 \\ \hline
+1 & 0.48 \\ \hline
+\end{tabular}
+\end{table}
+Instead of seven parameters as before, only five parameters are needed now:
+\begin{align}
+p(c), p(a|c), p(a|\bar{c}), p(b,c), p(b|\bar{c})
+\end{align}
+
+
+
+
+
+\end{document}

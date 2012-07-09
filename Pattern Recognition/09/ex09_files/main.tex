@@ -1,0 +1,102 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,right=1.5cm,top=2.0cm,bottom=2.8cm]{geometry}
+
+\usepackage[ngerman,american]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{sidecap}
+% \usepackage[FIGTOPCAP]{subfigure}
+\usepackage{float}
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+%\usepackage{empheq}
+\usepackage[footnotesize,bf]{caption}
+\usepackage{subcaption}
+%\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}
+\theoremstyle{plain}
+\newtheorem{theo}[defi]{Theorem}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+\title{Exercise 9}
+\author{Philipp Hanslovsky, Robert Walecki}
+
+\begin{document}
+
+
+\lstloadlanguages{R} 
+\lstset{language=R,
+   %keywords={break,case,catch,continue,else,elseif,end,for,function,
+   %   global,if,otherwise,persistent,return,switch,try,while},
+   basicstyle=\ttfamily,
+   keywordstyle=\color{blue},
+   commentstyle=\color{green!40!black},
+   stringstyle=\color{red},
+   numbers=left,
+   numberstyle=\tiny\color{white!50!black},
+   stepnumber=1,
+   numbersep=10pt,
+   backgroundcolor=\color{white},
+   tabsize=4,
+   showspaces=false,
+   showstringspaces=false,
+   frame=single}
+
+
+\maketitle
+
+\section*{9.1.1}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{scatter.pdf}
+\caption{scatter plot of the distribution of pixels in color space}
+\label{fig:scat}
+\end{figure}
+
+\section*{9.1.2}
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.45\textwidth}
+\includegraphics[width=\textwidth]{centers.pdf}
+\caption{RGB}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.45\textwidth}
+\includegraphics[width=\textwidth]{centersXY.pdf}
+\caption{RGB components of RGBXY clusters}
+\end{subfigure}
+\caption{scatter plot with four clusters}
+\label{fig:clus}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{compression.pdf}
+\caption{left column: original image, center column: compression with RGB feature space ($K\in\{4,16,64\}$), right column: compression with RGBXY feature space ($K\in\{4,16,64\}$)}
+\label{fig:compress}
+\end{figure}
+
+\section*{9.1.4}
+As expected the RGB components of RGBXY clustering differ from the result for RGB clustering (see fig \ref{fig:clus}). The pixels of a single cluster are more spread out in RGB space and the clusters overlap. It becomes most obvious for the light blue cluster, which cannot be recognized as a cluster, when only looking at RGB space and not at RGBXY. The result for image compression is seen in fig \ref{fig:compress}: For four clusters, there are three greenish patches, that make the spatial clustering obvious. Patches like that occur for a larger number of clusters as well, however, not as obvious.
+
+
+
+
+
+
+
+
+
+\end{document}
