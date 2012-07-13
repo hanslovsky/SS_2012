@@ -1,0 +1,77 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[left=1.5cm,right=1.5cm,top=2.0cm,bottom=2.8cm]{geometry}
+
+\usepackage[ngerman,american]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{epstopdf}
+\usepackage{sidecap}
+% \usepackage[FIGTOPCAP]{subfigure}
+\usepackage{float}
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+%\usepackage{empheq}
+\usepackage[footnotesize,bf]{caption}
+\usepackage{subcaption}
+%\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode}
+\usepackage[utf8x]{inputenc}
+\usepackage{lmodern, textcomp}
+
+
+\theoremstyle{definition}
+\newtheorem{defi}{Definition}
+\theoremstyle{plain}
+\newtheorem{theo}[defi]{Theorem}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+\title{Exercise 11}
+\author{Philipp Hanslovsky, Robert Walecki}
+
+\begin{document}
+
+
+\lstloadlanguages{R} 
+\lstset{language=R,
+   %keywords={break,case,catch,continue,else,elseif,end,for,function,
+   %   global,if,otherwise,persistent,return,switch,try,while},
+   basicstyle=\ttfamily,
+   keywordstyle=\color{blue},
+   commentstyle=\color{green!40!black},
+   stringstyle=\color{red},
+   numbers=left,
+   numberstyle=\tiny\color{white!50!black},
+   stepnumber=1,
+   numbersep=10pt,
+   backgroundcolor=\color{white},
+   tabsize=4,
+   showspaces=false,
+   showstringspaces=false,
+   frame=single}
+
+
+\maketitle
+
+\section*{11.1.1}
+The question can be formulated as a LP:
+\begin{flalign}
+&\operatorname*{arg\,max}_x c^Tx \\
+&s.t. \\
+&e^Tx = 40 \\
+&x \le d \\
+&x = (x1, x2)^T, c = (2.5, 3.0)^T, e = (1/2, 1/1.4)^T, d = (60, 40)^T 
+\end{flalign}
+$x$ is the amount of cherries and apples plucked. $c$ is the profit. $e$ is the effort to pluck 1kg. $d$ is the maximum demand.
+
+\section*{11.1.2}
+The optimal solution is selling 60kg of cherries and 14kg of apples. The profit then amounts to 192€.
+
+\end{document}
