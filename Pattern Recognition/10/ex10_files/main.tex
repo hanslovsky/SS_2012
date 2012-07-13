@@ -111,7 +111,31 @@ p(c), p(a|c), p(a|\bar{c}), p(b,c), p(b|\bar{c})
 \section*{10.2}
 
 % Mach dei Zeug da rein, Robbat!
-
+% ich klatsch dich weg
+Def. d-separation:\\
+A and B are d-separated by C if all paths from a vertex of A to a vertex of B are blocked.\\
+\\
+Def. Blocking:\\
+A path between two vertices is blocked if it passes through a vertex v s.t.\\
+      arrows are head-tail oder tail-tail and v is element C\\
+      arrows are head-head and v is not element C\\
+\\
+to prof that a A and B are not d-separated we have to find one path that is not blocked.\\
+\\
+1 is false\\
+prof: \\
+C - G - J - L is not blocked\\
+\\
+2 is false\\
+prof: \\
+J - G - C - H is not blocked\\
+\\
+3 is false\\
+H - C - G - J - L - K - I - E is not blocked\\
+\\
+4 is galse\\
+H - K - I - B - F - A is not blocked\\
+\\
 \section*{10.3.1}
 The best fitting graph is graph \#4. The flaws of the others are:
 In graph \#1 the ``Terminator 2'' node should be connected with the ``date plan'' node as we make our decision for the date plan based on the Terminator 2 rumor. The ``likes robot movies'' node should influence the date plan but only the girl's decision. Graph \#2 is the same as \#1 except the ``Terminator 3'' node's connection with the ``decision'' node is complete nonsense. The availability in local cinemas affects the date plan, not the decision. Graph \#3 is the same as \#1 except connecting the ``Terminator 3'' node with the ``Terminator 2'' node does not make any sense at all.
