@@ -57,6 +57,8 @@
    showstringspaces=false,
    frame=single}
 
+\def\dblone{\hbox{$1\hskip -1.2pt\vrule depth 0pt height 1.6ex width 0.7pt
+                  \vrule depth 0pt height 0.3pt width 0.12em$}}
 
 \maketitle
 
@@ -73,5 +75,31 @@ $x$ is the amount of cherries and apples plucked. $c$ is the profit. $e$ is the 
 
 \section*{11.1.2}
 The optimal solution is selling 60kg of cherries and 14kg of apples. The profit then amounts to 192€.
+
+
+\section*{11.2.2}
+\begin{flalign}
+&\hat{x} = \operatorname*{arg\,min}_x ||y-Ax|| = \operatorname*{arg\,min}_x\sum_i|y_i-\sum_ja_{ij}x_j|
+\end{flalign}
+$y$ contains the observed values at coordinates given by $A$. $x$ are the regression parameters to be optimized. This problem can be translated to a linear program:
+\begin{flalign}
+&\hat{x} = \operatorname*{arg\,min}_{v,x} \mathbb{I}^Tv \\
+& s.t. \\
+-&v + Ax \le y \\
+-&v - Ax \le y
+\end{flalign}
+$\mathbb{I}$ is a vector of ones of the same dimension as $v$. 
+This can be rewritten as:
+\begin{flalign}
+&\operatorname*{arg\,min}_{\tilde{x}} c^T\tilde{x} \\
+&s.t. \\
+&\tilde{A}\tilde{x} \le \tilde{y} \\
+&\tilde{A} = \begin{pmatrix}
+            A & - \dblone \\
+            -A & -\dblone
+            \end{pmatrix},
+\tilde{x} = (x, v)^T, \tilde{y} = (y, -y)^T
+\end{flalign}
+$\dblone$ is the identity matrix, the others as before.
 
 \end{document}
