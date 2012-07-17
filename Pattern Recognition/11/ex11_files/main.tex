@@ -80,7 +80,7 @@ The optimal solution is selling 60kg of cherries and 14kg of apples. The profit 
 The dual is derived from the Lagrangian:
 \begin{flalign}
 &g(\lambda, \nu) = \sup_xL(x,\lambda,\nu) \\
-&\mathcal{L} = c^Tx +\lambda^T(x-d) + \nu(e^Tx - 40) = x^T(c+\lambda+\nu e)-\lambda^Td-40\nu, \lambda \ge 0 \\
+&\mathcal{L} = c^Tx +\lambda^T(d-x) + \nu(e^Tx - 40) = x^T(c-\lambda+\nu e)+\lambda^Td-40\nu, \lambda \ge 0 \\
 &g(\lambda, \nu) = \begin{cases}
                    \lambda^Td - 40 \nu & (c - \lambda + \nu e) = 0 \\
                    -\infty & {\text otherwise}
@@ -98,7 +98,7 @@ It is obvious that the infinite infimum is not of any use. The dual problem is t
 
 The dual of the dual can be derived the same way:
 \begin{flalign}
-&\mathcal{L} = d^T\lambda-40\nu+k^T(c-\lambda+\nu e)-l^T\lambda = \lambda^T(d-k-l)+\nu(-40+e^Tk), l \le 0 \\
+&\mathcal{L} = d^T\lambda-40\nu+k^T(c-\lambda+\nu e)-l^T\lambda = \lambda^T(d-k-l)+\nu(-40+e^Tk), l \ge 0 \\
 &\operatorname*{arg\,max}_k g = \operatorname*{arg\,max}_k \inf_{\lambda,\nu}L = \operatorname*{arg\,max}_k c^Tk \\
 &s.t. \\
 &k-d \le 0\\
