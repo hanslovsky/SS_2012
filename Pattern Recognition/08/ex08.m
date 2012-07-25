@@ -124,13 +124,14 @@ hold off
 
 % 8.2.1
 
-
+x(4:10) = -0.9:0.3:0.9;
+y(4:10) = sin(x(4:10));
 [theta0, theta1, theta2, theta3, beta] = deal(1, 20, 0, 0, 25);
 sigma22 = gp_cov(x, x, theta0, theta1, theta2, theta3, beta);
-sigma21 = gp_cov(x, query, theta0, theta1, theta2, theta3, beta);
-sigma11 = gp_cov(query, query, theta0, theta1, theta2, theta3, beta);
+sigma21 = gp_cov(x, query, theta0, theta1, theta2, theta3, 0);
+sigma11 = gp_cov(query, query, theta0, theta1, theta2, theta3, 0);
 response = y*(sigma22\sigma21);
-uncertainty = diag(sigma11) - diag(sigma21'*(sigma22\sigma21));
+uncertainty = diag(sigma11 - sigma21'*(inv(sigma22)*sigma21));
 uncertainty = abs(uncertainty');
 uncertainty = sqrt(uncertainty);
 % uncertainty = zeros(size(query));

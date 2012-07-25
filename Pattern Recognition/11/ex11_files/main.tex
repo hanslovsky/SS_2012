@@ -121,7 +121,7 @@ The least squares method does not fit the data very well. The outliers distort t
 \end{flalign}
 $y$ contains the observed values at coordinates given by $A$. $x$ are the regression parameters to be optimized. This problem can be translated to a linear program:
 \begin{flalign}
-&\hat{x} = \operatorname*{arg\,min}_{v,x} \mathbb{I}^Tv \\
+&\hat{v} = \operatorname*{arg\,min}_{v,x} \mathbb{I}^Tv \\
 & s.t. \\
 -&v + Ax \le y \\
 -&v - Ax \le y
